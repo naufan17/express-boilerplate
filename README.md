@@ -1,7 +1,17 @@
 # Bolierplate Express JS REST API
 Minimalist project structure using express js to build REST API
 
-## Getting started:
+## Table of Content
+
+- [Preparation](#preparation)
+- [Instalation](#instalation)
+- [Run Server](#run-server)
+- [Feature](#feature)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Default API Edpoint](#default-api-edpoint)
+
+## Preparation:
 - Clone this repository
 ```
 git clone https://github.com/naufan17/express-boilerplate.git
@@ -14,9 +24,11 @@ cd express-boilerplate
 ```
 rm -rf .git
 ```
+
+## Instalation
 - Rename .env.example to .env and fill in the section that must be filled
 - Custom your project name in package.json
-- Run this command to instal dependencies
+- Instal dependencies
 ```
 npm install
 ```
@@ -24,21 +36,27 @@ npm install
 ```
 npm run migrate 
 ```
-- Seed data to table
+- Seed database
 ```
 npm run seed
 ```
-- Run this command to start the server in local development
+
+## Run Server
+- Start the server in local development
 ```
 npm run dev
 ```
-- Run this command to build the project
+- Build the project
 ```
 npm run build
 ```
-- Run this command to start the server after build
+- Start the server after build
 ```
 npm run start
+```
+- Lint code
+```
+npm run lint
 ```
 
 ## Feature
@@ -73,6 +91,10 @@ src\
   |--index.ts      # Main entry point
 
 ```
+
+## API Documentation
+To view the API documentation, open the following link:
+[http://localhost:8000/api-docs](http://localhost:8000/api-docs)
 
 ## Default API Edpoint
 **Auth routes**:
