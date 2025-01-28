@@ -45,40 +45,39 @@ npm run start
 - **Database**: using https://knexjs.org/
 - **ORM**: using https://vincit.github.io/objection.js/
 - **Logging**: using https://github.com/expressjs/morgan
-- **Linting**: using https://eslint.org/ and https://prettier.io/
+- **Linting**: using https://eslint.org/
 - **Validation**: https://express-validator.github.io/docs/
 - **Security**: using https://helmetjs.github.io/
 - **CORS**: using https://github.com/expressjs/cors
 - **Compression**: using https://github.com/expressjs/compression
 - **Environtment variables**: using https://github.com/motdotla/dotenv
 - **Dependency management**: using https://www.npmjs.com/
+- **API Documentation**: using https://swagger.io/
 
 ## Project Structure
 ```
 database\
 dist\
 src\
-  |--configs\      # Configuration project
-  |--controllers\  # Route controllers
-  |--helpers\      #
-  |--middlewares\  # Protecting for request
-  |--modeles\      # Data layes 
-  |--repositories\ # 
-  |--routes\       # Routing
-  |--services\     # Bussiness logic
-  |--types\        
-  |--utils\        # Utility classes and function
-  |--validators\   # Request data validation schema
-  |--index.ts      #Entry app
+  |--configs\      # Config files
+  |--controllers\  # Request handler
+  |--helpers\      # Helper function
+  |--middlewares\  # Pre-request middleware
+  |--models\       # Database models
+  |--repositories\ # Database queries
+  |--routes\       # API routes
+  |--services\     # Business logic
+  |--types\        # Typescript types
+  |--utils\        # Utility function
+  |--validators\   # Validation function
+  |--index.ts      # Main entry point
 
 ```
 
 ## Default API Edpoint
 **Auth routes**:
-``POST /api/v1/auth/register`` - Create new account
-``POST /api/v1/auth/login`` - Login to existing account
+``POST /api/v1/auth/register``  - Create new account
+``POST /api/v1/auth/login``     - Login to existing account
 
 **User routes**:
-``GET /api/v1/user/profile`` - Get current user
-
-
+``GET /api/v1/user/profile``    - Get current user
