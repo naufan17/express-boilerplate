@@ -1,4 +1,4 @@
-import User from "../models/userModel";
+import User from "../models/user.model";
 import { v4 as uuidv4 } from "uuid";
 
 export const create = async (

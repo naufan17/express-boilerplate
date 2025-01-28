@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { handleBadRequest, handleConflict, handleCreated, handleInternalServerError, handleOk, handleUnauthorized } from '../helpers/responseHelper';
-import { login, register } from '../services/authService';
-import User from '../models/userModel';
+import { handleBadRequest, handleConflict, handleCreated, handleInternalServerError, handleOk, handleUnauthorized } from '../helpers/response.helper';
+import { login, register } from '../services/auth.service';
+import User from '../models/user.model';
 
 export const ReqRegister = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password } = req.body;

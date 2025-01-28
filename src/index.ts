@@ -1,35 +1,17 @@
-import express, { Express } from "express";
-import cors from "cors";
-import morgan from "morgan";
-import helmet from "helmet";
-import compress from "compression";
-import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
-import api from "./routes/api";
-import logger from "./configs/logger";
-import "./configs/database";
+import app from "./configs/app";
+import knexInstance from "./configs/database";
 
-const openApiDocument = YAML.load('./docs/openapi.yaml');
 const port: number = Number(process.env.PORT) || 8000;
-const app: Express = express();
 const host: string = process.env.HOST || "localhost";
-const stream = {
-  write: (message: string) => {
-    logger.info(message.trim());
-  },
-}
 
-app.use(
-  cors(),
-  helmet(),
-  compress(),
-  express.json(),
-  express.urlencoded({ extended: false })
-)
-
-app.use(morgan('combined', { stream }));
-app.use("/api/v1", api);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
+knexInstance.raw('SELECT 1 + 1 AS result')
+  .then(() => {
+    console.log('[server] Database connection successful');
+  })
+  .catch((error) => {
+    console.error('[server] Database connection failed:', error);
+    process.exit(1);
+  });
 
 app.listen(port, () => {
   console.log(`[server] Server is running on http://${host}:${port}`);

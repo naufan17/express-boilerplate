@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response, NextFunction } from "express";
-import { handleUnauthorized } from "../helpers/responseHelper";
+import { handleUnauthorized } from "../helpers/response.helper";
 import { verifyToken } from "../utils/jwt";
 
 export const authenticateMiddleware = async (req: Request | any, res: Response, next: NextFunction) => {

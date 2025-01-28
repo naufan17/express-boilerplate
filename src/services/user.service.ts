@@ -1,5 +1,5 @@
-import User from "../models/userModel";
-import { findUserById } from "../repositories/userRepository";
+import User from "../models/user.model";
+import { findUserById } from "../repositories/user.repository";
 
 export const userProfile = async (
   id: string

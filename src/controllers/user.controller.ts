@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
-import { handleInternalServerError, handleNotFound, handleOk } from '../helpers/responseHelper';
-import { userProfile } from '../services/userService';
-import User from '../models/userModel';
+import { handleInternalServerError, handleNotFound, handleOk } from '../helpers/response.helper';
+import { userProfile } from '../services/user.service';
+import User from '../models/user.model';
 
 export const ReqUserProfile = async (req: Request | any, res: Response): Promise<void> => {
   const { user }: { user: any } = req;
