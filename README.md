@@ -64,6 +64,7 @@ npm run lint
 - **Logging**: using https://github.com/expressjs/morgan and https://github.com/winstonjs/winston
 - **Linting**: using https://eslint.org/
 - **Validation**: https://express-validator.github.io/docs/
+- **Rate Limit**: using https://github.com/expressjs/express-rate-limit
 - **Security**: using https://helmetjs.github.io/
 - **CORS**: using https://github.com/expressjs/cors
 - **Compression**: using https://github.com/expressjs/compression
