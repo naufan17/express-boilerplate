@@ -44,7 +44,7 @@ npm run start
 ## Feature
 - **Database**: using https://knexjs.org/
 - **ORM**: using https://vincit.github.io/objection.js/
-- **Logging**: using https://github.com/expressjs/morgan
+- **Logging**: using https://github.com/expressjs/morgan and https://github.com/winstonjs/winston
 - **Linting**: using https://eslint.org/
 - **Validation**: https://express-validator.github.io/docs/
 - **Security**: using https://helmetjs.github.io/
@@ -76,8 +76,12 @@ src\
 
 ## Default API Edpoint
 **Auth routes**:
+<br/>
 ``POST /api/v1/auth/register``  - Create new account
+<br/>
 ``POST /api/v1/auth/login``     - Login to existing account
 
 **User routes**:
+<br/>
 ``GET /api/v1/user/profile``    - Get current user
+<br/>
