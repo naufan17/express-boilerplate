@@ -1,0 +1,9 @@
+/node_modules
+/dist
+/logs
+/build
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
