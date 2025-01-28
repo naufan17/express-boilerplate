@@ -5,6 +5,7 @@ import helmet from "helmet";
 import compress from "compression";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
+import limiter from "./ratelimit";
 import api from "../routes";
 import logger from "./logger";
 import "./database";
@@ -18,6 +19,7 @@ const stream = {
 }
 
 app.use(
+  limiter,
   cors(),
   helmet(),
   compress(),
