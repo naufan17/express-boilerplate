@@ -1,8 +1,9 @@
 import knex, { Knex } from 'knex';
 import { Model } from 'objection';
 import knexfile from '../../knexfile';
+import config from './config';
 
-const environment: string = process.env.NODE_ENV || 'development';
+const environment: string = config.NODE_ENV;
 const knexInstance: Knex = knex(knexfile[environment]);
 
 Model.knex(knexInstance);
