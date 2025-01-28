@@ -1,4 +1,4 @@
-# Bolierplate Express JS Fullstack API with Objection.js and Knex.js
+# Bolierplate Express JS REST API with Objection.js and Knex.js
 
 ## How to setup local code program:
 - Clone this repository

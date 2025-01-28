@@ -21,7 +21,17 @@ export const findByEmail = async (
 ): Promise<User | undefined> => {
   return await User
     .query()
-    .select("email", "password")
+    .select("id", "email", "password")
     .where("email", email)
+    .first();
+};
+
+export const findUserById = async (
+  id: string
+): Promise<User | undefined> => {
+  return await User
+    .query()
+    .select("id", "name", "email")
+    .where("id", id)
     .first();
 };

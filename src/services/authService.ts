@@ -1,6 +1,6 @@
+import bcrypt from "bcryptjs";
 import User from "../models/userModel";
 import { findByEmail, create } from "../repositories/userRepository";
-import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/jwt";
 
 export const register = async (

@@ -33,7 +33,7 @@ export const ReqLogin = async (req: Request, res: Response): Promise<void> => {
       expiresIn: number | undefined; 
       tokenType: string 
     } | null = await login(email, password);
-    if (!accessToken) return handleUnauthorized (res, 'Invalid email or password');
+    if (!accessToken) return handleUnauthorized(res, 'Invalid email or password');
 
     return handleOk(res, 'Login successful', accessToken);
   } catch (error) {
