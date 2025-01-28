@@ -2,7 +2,6 @@
 Minimalist project structure using express js to build REST API
 
 ## Table of Content
-
 - [Preparation](#preparation)
 - [Instalation](#instalation)
 - [Run Server](#run-server)

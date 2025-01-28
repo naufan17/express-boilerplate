@@ -27,13 +27,8 @@ app.use(
   express.urlencoded({ extended: false })
 )
 
-// Log requests
 app.use(morgan('combined', { stream }));
-
-// API routes 
 app.use("/api/v1", api);
-
-// OpenAPI documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
 
 app.listen(port, () => {

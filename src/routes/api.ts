@@ -15,7 +15,7 @@ router.post('/auth/login', loginValidator(), ReqLogin);
 router.get('/user/profile', authenticateMiddleware, ReqUserProfile);
 
 router.get('/', (req: Request, res: Response) => {
-  return handleOk(res, 'Welcome to Express API Boilerplate');
+  return handleOk(res, 'Welcome to Express Rest API');
 });
 
 router.use((req: Request, res: Response) => {

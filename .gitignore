@@ -3,7 +3,4 @@
 /logs
 /build
 
-.env*
-.flaskenv*
-!.env.project
-!.env.vault
+.env
