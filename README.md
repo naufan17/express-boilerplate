@@ -10,7 +10,7 @@ Minimalist project structure using express js to build REST API
 - [API Documentation](#api-documentation)
 - [Default API Edpoint](#default-api-edpoint)
 
-## Preparation:
+## Preparation
 - Clone this repository
 ```
 git clone https://github.com/naufan17/express-boilerplate.git
@@ -74,9 +74,9 @@ npm run lint
 
 ## Project Structure
 ```
-database\
-dist\
-src\
+database\          # Database migrations and seeders
+docs\              # Documentation files
+src\               # Source code
   |--configs\      # Config files
   |--controllers\  # Request handler
   |--helpers\      # Helper function
@@ -96,7 +96,7 @@ src\
 To view the API documentation, open the following link:
 [http://localhost:8000/api-docs](http://localhost:8000/api-docs)
 
-## Default API Edpoint
+## Default API Endpoint
 **Auth routes**:
 <br/>
 ``POST /api/v1/auth/register``  - Create new account
@@ -107,3 +107,22 @@ To view the API documentation, open the following link:
 <br/>
 ``GET /api/v1/user/profile``    - Get current user
 <br/>
+
+## Response Format
+
+- **Success Response**:
+```
+{
+  "success": true,
+  "message": "success message",
+  "data": {
+    "key": "value",
+  }
+}
+```
+- **Error Response**:
+```
+{
+  "success": false,
+  "message": "error message",
+}
