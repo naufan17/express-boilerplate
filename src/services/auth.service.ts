@@ -49,3 +49,13 @@ export const login = async (
     throw new Error("Error logging in");
   }
 }
+
+export const authenticateUser = async (email: string, password: string) => {
+  const user: User | undefined = await findByEmail(email);
+  if (!user) return null;
+
+  const isPasswordValid: boolean = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) return null;
+
+  return user;
+}

@@ -8,7 +8,8 @@ Minimalist project structure using express js to build REST API
 - [Feature](#feature)
 - [Project Structure](#project-structure)
 - [API Documentation](#api-documentation)
-- [Default API Edpoint](#default-api-edpoint)
+- [Default API Endpoint](#default-api-endpoint)
+- [Response Format](#response-format)
 
 ## Preparation
 - Clone this repository
@@ -61,6 +62,7 @@ npm run lint
 ## Feature
 - **Database**: using https://knexjs.org/
 - **ORM**: using https://vincit.github.io/objection.js/
+- **Authentication**: using https://github.com/auth0/node-jsonwebtoken and https://github.com/passportjs/passport
 - **Logging**: using https://github.com/expressjs/morgan and https://github.com/winstonjs/winston
 - **Linting**: using https://eslint.org/
 - **Validation**: https://express-validator.github.io/docs/

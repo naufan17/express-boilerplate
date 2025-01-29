@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import { authenticateMiddleware } from '../middlewares/authenticate.middleware';
-import { ReqUserProfile } from '../controllers/user.controller';
+import { authenticateJwt } from '../middlewares/authenticate.middleware';
+import { reqUserProfile } from '../controllers/user.controller';
 
 const router: Router = express.Router();
 
-router.get('/profile', authenticateMiddleware, ReqUserProfile);
+router.get('/profile', authenticateJwt, reqUserProfile);
 
 export default router;

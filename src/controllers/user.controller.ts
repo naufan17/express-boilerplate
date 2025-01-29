@@ -4,11 +4,11 @@ import { handleInternalServerError, handleNotFound, handleOk } from '../helpers/
 import { userProfile } from '../services/user.service';
 import User from '../models/user.model';
 
-export const ReqUserProfile = async (req: Request | any, res: Response): Promise<void> => {
-  const { user }: { user: any } = req;
+export const reqUserProfile = async (req: Request | any, res: Response): Promise<void> => {
+  const { user }: { user: { id: string } } = req;
 
   try {
-    const userProfileData: User | null = await userProfile(user.sub);
+    const userProfileData: User | null = await userProfile(user.id);
     if(user === null) return handleNotFound(res, 'User not found');
 
     return handleOk(res, 'User profile found', userProfileData);

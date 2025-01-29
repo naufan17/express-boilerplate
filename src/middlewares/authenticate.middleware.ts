@@ -1,22 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import passport from "passport";
 import { Request, Response, NextFunction } from "express";
 import { handleUnauthorized } from "../helpers/response.helper";
-import { verifyToken } from "../utils/jwt";
 
-export const authenticateMiddleware = async (req: Request | any, res: Response, next: NextFunction) => {
-  const token: string | undefined = req.header('Authorization')?.split(' ')[1];
+export const authenticateJwt = (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate('jwt', { session: false }, (err: Error, user: { id: string }) => {
+    if(err || !user) return handleUnauthorized(res, 'Access token is invalid');
 
-  if (!token) {
-    return handleUnauthorized(res, 'Access token not found');
-  }
-
-  try {
-    const decoded = verifyToken(token);
-    req.user = decoded;
-    
+    req.user = user;
     next();
-  } catch (error) {
-    return handleUnauthorized(res, 'Invalid access token');
-  }
+  })(req, res, next);
 }

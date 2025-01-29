@@ -1,10 +1,12 @@
+import passport from 'passport';
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { handleBadRequest, handleConflict, handleCreated, handleInternalServerError, handleOk, handleUnauthorized } from '../helpers/response.helper';
-import { login, register } from '../services/auth.service';
 import User from '../models/user.model';
+import { register } from '../services/auth.service';
+import { generateToken } from '../utils/jwt';
 
-export const ReqRegister = async (req: Request, res: Response): Promise<void> => {
+export const reqRegister = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password } = req.body;
   const errors = validationResult(req);
 
@@ -21,23 +23,16 @@ export const ReqRegister = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
-export const ReqLogin = async (req: Request, res: Response): Promise<void> => {
-  const { email, password } = req.body;
-  const errors = validationResult(req);
+export const reqLogin = async (req: Request, res: Response): Promise<void> => {
+  passport.authenticate('local', { session: false }, async (err: Error, user: User) => {
+    if(err || !user) return handleUnauthorized(res, 'Invalid email or password');
 
-  if(!errors.isEmpty()) return handleBadRequest(res, errors.array()[0].msg);
-
-  try {
     const accessToken: { 
       accessToken: string; 
       expiresIn: number | undefined; 
       tokenType: string 
-    } | null = await login(email, password);
-    if (!accessToken) return handleUnauthorized(res, 'Invalid email or password');
-
+    } = generateToken({ sub: user.id });
+    
     return handleOk(res, 'Login successful', accessToken);
-  } catch (error) {
-    console.log(error);
-    return handleInternalServerError(res, 'Error logging in');
-  }
+  })(req, res);
 };

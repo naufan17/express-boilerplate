@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
 import { loginValidator, registerValidator } from '../validators/auth.validator';
-import { ReqLogin, ReqRegister } from '../controllers/auth.controller';
+import { reqLogin, reqRegister } from '../controllers/auth.controller';
 
 const router: Router = express.Router();
 
-router.post('/register', registerValidator(), ReqRegister);
-router.post('/login', loginValidator(), ReqLogin);
+router.post('/register', registerValidator(), reqRegister);
+router.post('/login', loginValidator(), reqLogin);
 
 export default router;
