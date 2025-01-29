@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { Express } from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -12,7 +13,7 @@ import logger from "./logger";
 
 const openApiDocument = YAML.load('./docs/openapi.yaml');
 const app: Express = express();
-const stream = {
+const stream: any = {
   write: (message: string) => {
     logger.info(message.trim());
   },

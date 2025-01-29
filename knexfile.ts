@@ -1,6 +1,6 @@
 import type { Knex } from "knex";
 import dotenv from "dotenv";
-import { DatabaseConfig } from "./src/types/database";
+import { DatabaseConfig } from "./src/types/database.type";
 
 dotenv.config();
 

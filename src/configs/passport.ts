@@ -24,8 +24,8 @@ passport.use(
       console.log(error);
       return done(error);
     }
-  }
-));
+  })
+);
 
 passport.use(
   new JwtStrategy({
@@ -38,7 +38,7 @@ passport.use(
   ): Promise<void> => {
     if (payload.sub === undefined) return done(null, false, { message: 'Invalid token' });
     return done(null, { id: payload.sub });
-  }
-));
+  })
+);
 
 export default passport;

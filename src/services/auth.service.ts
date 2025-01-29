@@ -3,11 +3,7 @@ import User from "../models/user.model";
 import { findByEmail, create } from "../repositories/user.repository";
 import { generateToken } from "../utils/jwt";
 
-export const register = async (
-  name: string,
-  email: string, 
-  password: string
-): Promise<User | null> => {
+export const register = async (name: string, email: string, password: string): Promise<User | null> => {
   try {
     const user: User | undefined = await findByEmail(email);
     if (user) return null;
@@ -22,10 +18,7 @@ export const register = async (
   }
 }
 
-export const login = async (
-  email: string, 
-  password: string
-): Promise<{ 
+export const login = async (email: string, password: string): Promise<{ 
   accessToken: string; 
   expiresIn: number | undefined; 
   tokenType: string 
@@ -50,7 +43,7 @@ export const login = async (
   }
 }
 
-export const authenticateUser = async (email: string, password: string) => {
+export const authenticateUser = async (email: string, password: string): Promise<User | null> => {
   const user: User | undefined = await findByEmail(email);
   if (!user) return null;
 

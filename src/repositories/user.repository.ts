@@ -16,9 +16,7 @@ export const create = async (
   }).returning('*');
 };
 
-export const findByEmail = async (
-  email: string
-): Promise<User | undefined> => {
+export const findByEmail = async (email: string): Promise<User | undefined> => {
   return await User
     .query()
     .select("id", "email", "password")
@@ -26,9 +24,7 @@ export const findByEmail = async (
     .first();
 };
 
-export const findUserById = async (
-  id: string
-): Promise<User | undefined> => {
+export const findUserById = async (id: string): Promise<User | undefined> => {
   return await User
     .query()
     .select("id", "name", "email")

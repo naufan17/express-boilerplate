@@ -1,7 +1,7 @@
 {
-  "name": "express-bolerplate",
+  "name": "express-boilerplate",
   "version": "1.0.0",
-  "description": "Express Rest API Bolerplate",
+  "description": "Express Rest API Boilerplate",
   "main": "src/index.ts",
   "scripts": {
     "dev": "concurrently \"tsc -w\" \"nodemon src/index.ts\"",
@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-boilerplate": "file:",
     "express-bolerplate": "file:",
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
