@@ -58,6 +58,10 @@ npm run start
 ```
 npm run lint
 ```
+- Test code
+```
+npm run test
+```
 
 ## Feature
 - **Database**: using https://knexjs.org/
@@ -71,8 +75,9 @@ npm run lint
 - **CORS**: using https://github.com/expressjs/cors
 - **Compression**: using https://github.com/expressjs/compression
 - **Environtment variables**: using https://github.com/motdotla/dotenv
-- **Dependency management**: using https://www.npmjs.com/
+- **Testing**: using https://github.com/jestjs/jest and https://supertest.js.org/
 - **API Documentation**: using https://swagger.io/
+- **Dependency management**: using https://www.npmjs.com/
 
 ## Project Structure
 ```
@@ -91,12 +96,13 @@ src\               # Source code
   |--utils\        # Utility function
   |--validators\   # Validation function
   |--index.ts      # Main entry point
-
+Tests\             # Test files
 ```
 
 ## API Documentation
 To view the API documentation, open the following link:
-[http://localhost:8000/api-docs](http://localhost:8000/api-docs)
+<br/>
+``GET /api-docs`` - API documentation
 
 ## Default API Endpoint
 **Auth routes**:

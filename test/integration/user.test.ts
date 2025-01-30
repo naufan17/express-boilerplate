@@ -13,7 +13,7 @@ describe('GET /api/v1/user', () => {
     const accessToken: string = loginResponse.body.data.accessToken;
 
     const response = await request(app)
-      .get('/api/v1/user')
+      .get('/api/v1/user/profile')
       .set('Authorization', `Bearer ${accessToken}`);
 
     expect(response.status).toBe(200);
@@ -22,7 +22,7 @@ describe('GET /api/v1/user', () => {
   it('should return 401 Unauthorized', async () => {
     const accessToken: string = 'secret';
     const response = await request(app)
-      .get('/api/v1/user')
+      .get('/api/v1/user/profile')
       .set('Authorization', `Bearer ${accessToken}`);
 
     expect(response.status).toBe(401);
@@ -30,7 +30,7 @@ describe('GET /api/v1/user', () => {
 
   it('should return 401 Unauthorized', async () => {
     const response = await request(app)
-      .get('/api/v1/user');
+      .get('/api/v1/user/profile');
 
     expect(response.status).toBe(401);
   });

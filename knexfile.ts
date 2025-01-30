@@ -25,7 +25,7 @@ const knexConfig: { [key: string]: Knex.Config } = {
     seeds: {
       directory: "./database/seeders"
     },
-    debug: true,
+    // debug: true,
     acquireConnectionTimeout: 10000
   },
   staging: {
