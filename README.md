@@ -41,18 +41,10 @@ npm run migrate
 npm run seed
 ```
 
-## Run Server
-- Start the server in local development
-```
-npm run dev
-```
+# Run Script
 - Build the project
 ```
 npm run build
-```
-- Start the server after build
-```
-npm run start
 ```
 - Lint code
 ```
@@ -61,6 +53,16 @@ npm run lint
 - Test code
 ```
 npm run test
+```
+
+## Run Server
+- Start the server in local development
+```
+npm run dev
+```
+- Start the server in production
+```
+npm run start
 ```
 
 ## Feature
@@ -96,7 +98,7 @@ src\               # Source code
   |--utils\        # Utility function
   |--validators\   # Validation function
   |--index.ts      # Main entry point
-Tests\             # Test files
+test\              # Test files
 ```
 
 ## API Documentation
