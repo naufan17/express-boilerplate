@@ -4,6 +4,7 @@ const config: { [key: string]: string } = {
   HOST: process.env.HOST || 'localhost',
   DB_CLIENT: process.env.DB_CLIENT || 'postgresql',
   DB_URL: process.env.DB_URL || 'postgresql://postgres:postgres@localhost:5432/express',
+  DB_SSL: process.env.DB_SSL || 'false',
   JWT_SECRET_KEY: process.env.JWT_SECRET_KEY || 'secret',
   JWT_EXPIRED_IN: process.env.JWT_EXPIRED_IN || '3600000',
 };

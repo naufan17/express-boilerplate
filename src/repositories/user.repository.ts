@@ -8,7 +8,9 @@ export const create = async (
 ): Promise<User> => {
   const id: string = uuidv4();
 
-  return await User.query().insert({
+  return await User
+  .query()
+  .insert({
     id,
     name,
     email,

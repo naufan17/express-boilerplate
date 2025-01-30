@@ -6,7 +6,8 @@ dotenv.config();
 
 const { 
   DB_CLIENT,
-  DB_URL
+  DB_URL,
+  DB_SSL
 } = process.env as unknown as Required<DatabaseConfig>;
 
 const knexConfig: { [key: string]: Knex.Config } = {
@@ -23,11 +24,16 @@ const knexConfig: { [key: string]: Knex.Config } = {
     },
     seeds: {
       directory: "./database/seeders"
-    }
+    },
+    debug: true,
+    acquireConnectionTimeout: 10000
   },
   staging: {
     client: DB_CLIENT,
-    connection: DB_URL,
+    connection: {
+      connectionString: DB_URL,
+      ssl: DB_SSL ? { rejectUnauthorized: false } : false
+    },
     pool: {
       min: 2,
       max: 10
@@ -38,11 +44,15 @@ const knexConfig: { [key: string]: Knex.Config } = {
     },
     seeds: {
       directory: "./database/seeders"
-    }
+    },
+    acquireConnectionTimeout: 10000
   },
   production: {
     client: DB_CLIENT,
-    connection: DB_URL,
+    connection: {
+      connectionString: DB_URL,
+      ssl: DB_SSL ? { rejectUnauthorized: false } : false
+    },
     pool: {
       min: 2,
       max: 10
@@ -52,8 +62,9 @@ const knexConfig: { [key: string]: Knex.Config } = {
       directory: "./database/migrations"
     },
     seeds: {
-      directory: "./database/seeders",
-    }
+      directory: "./database/seeders"
+    },
+    acquireConnectionTimeout: 10000
   }
 };
 
