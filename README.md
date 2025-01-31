@@ -86,6 +86,7 @@ npm run start
 database\          # Database migrations and seeders
 docs\              # Documentation files
 src\               # Source code
+  |--app\          # Express app
   |--configs\      # Config files
   |--controllers\  # Request handler
   |--helpers\      # Helper function
