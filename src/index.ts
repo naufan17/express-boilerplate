@@ -1,4 +1,4 @@
-import app from "./configs/app";
+import app from "./app/app";
 import knexInstance from "./configs/database";
 import config from "./configs/config";
 
