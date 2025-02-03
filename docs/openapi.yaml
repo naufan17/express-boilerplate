@@ -8,9 +8,9 @@ servers:
     description: Local server
 tags:
   - name: Auth
-    description: Authentication
-  - name: User
-    description: User
+    description: Authentication management
+  - name: Account
+    description: Account management
 components:
   securitySchemes:
     BearerAuth:
@@ -157,10 +157,10 @@ paths:
                     type: boolean
                   message:
                     type: string
-  /api/v1/users:
+  /api/v1/account/profile:
     get:
-      summary: Get current users
-      tags: [User]
+      summary: Get current account profile
+      tags: [Account]
       security:
         - BearerAuth: []
       responses:
@@ -197,6 +197,134 @@ paths:
                     type: string
         '500':
           description: Error getting users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+  /api/v1/account/update-profile:
+    post:
+      summary: Update current account profile
+      tags: [Account]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  example: jhon@example.com
+      responses:
+        '200':
+          description: Account profile updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Error updating account profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+  /api/v1/account/update-password:
+    post:
+      summary: Update current account password
+      tags: [Account]
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: password
+                confirmPassword:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: Account password updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Error updating account password
           content:
             application/json:
               schema:
