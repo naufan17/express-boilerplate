@@ -1,12 +1,12 @@
 import express, { Router, Request, Response } from 'express';
 import { responseInternalServerError, responseNotFound, responseOk } from '../helpers/response.helper';
 import authRoute from './auth.route';
-import userRoute from './user.route';
+import accountRoute from './account.route';
 
 const router: Router = express.Router();
 
 router.use('/auth', authRoute);
-router.use('/user', userRoute);
+router.use('/account', accountRoute);
 
 router.get('/', (req: Request, res: Response) => {
   return responseOk(res, 'Welcome to Express Rest API');

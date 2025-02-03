@@ -3,17 +3,17 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../helpers/response.helper';
 import User from '../models/user.model';
-import { register } from '../services/auth.service';
+import { registerUser } from '../services/auth.service';
 import { generateToken } from '../utils/jwt';
 
-export const reqRegister = async (req: Request, res: Response): Promise<void> => {
+export const register = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password } = req.body;
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   try {
-    const user: User | null = await register(name, email, password);
+    const user: User | null = await registerUser(name, email, password);
     if (!user) return responseConflict(res, 'User already exists');
 
     return responseCreated(res, 'User created successfully');
@@ -23,7 +23,7 @@ export const reqRegister = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
-export const reqLogin = async (req: Request, res: Response): Promise<void> => {
+export const login = async (req: Request, res: Response): Promise<void> => {
   passport.authenticate('local', { session: false }, async (err: Error, user: User) => {
     if(err || !user) return responseUnauthorized(res, 'Invalid email or password');
 
