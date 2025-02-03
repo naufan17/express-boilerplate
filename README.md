@@ -110,14 +110,17 @@ To view the API documentation, open the following link:
 ## Default API Endpoint
 **Auth routes**:
 <br/>
-``POST /api/v1/auth/register``  - Create new account
+``POST /api/v1/auth/register`` - Create new account
 <br/>
-``POST /api/v1/auth/login``     - Login to existing account
+``POST /api/v1/auth/login`` - Login to existing account
 
-**User routes**:
+**Account routes**:
 <br/>
-``GET /api/v1/user/profile``    - Get current user
+``GET /api/v1/account/profile`` - Get current account profile
 <br/>
+``POST /api/v1/account/update-profile`` - Update current account profile
+<br/>
+``POST /api/v1/account/update-password`` - Update current account password
 
 ## Response Format
 
