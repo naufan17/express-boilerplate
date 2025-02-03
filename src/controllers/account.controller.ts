@@ -27,7 +27,8 @@ export const updateProfile = async (req: Request | any, res: Response): Promise<
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   try {
-    await updateProfileUser(user.id, name, email);
+    const userProfileData: User | null =  await updateProfileUser(user.id, name, email);
+    if(userProfileData === null) return responseNotFound(res, 'User not found');
 
     return responseOk(res, 'User profile updated');
   } catch (error) {
@@ -44,7 +45,8 @@ export const updatePassword = async (req: Request | any, res: Response): Promise
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   try {
-    await updatePasswordUser(user.id, password);
+    const userProfileData: User | null = await updatePasswordUser(user.id, password);
+    if(userProfileData === null) return responseNotFound(res, 'User not found');
 
     return responseOk(res, 'User password updated');
   } catch (error) {

@@ -6,10 +6,10 @@ import helmet from "helmet";
 import compress from "compression";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
-import passport from "./passport";
-import limiter from "./ratelimit";
+import passport from "../configs/passport";
+import limiter from "../configs/ratelimit";
+import logger from "../configs/logger";
 import api from "../routes";
-import logger from "./logger";
 
 const openApiDocument = YAML.load('./docs/openapi.yaml');
 const app: Express = express();

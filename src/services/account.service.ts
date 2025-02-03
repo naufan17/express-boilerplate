@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import User from "../models/user.model";
 import { findUserById, updateProfile, updatePassword } from "../repositories/user.repository";
 
@@ -34,7 +35,10 @@ export const updatePasswordUser = async (
   password: string
 ): Promise<User | null> => {
   try {
-    const user: User | undefined = await updatePassword(id, password);
+    const hashedPassword: string = await bcrypt.hash(password, 10);
+    if (!hashedPassword) return null;
+
+    const user: User | undefined = await updatePassword(id, hashedPassword);
     if (!user) return null;
 
     return user;

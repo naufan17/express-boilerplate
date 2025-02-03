@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../src/configs/app';
+import app from '../../src/app/app';
 
 describe('GET /api/v1/user', () => {
   it('should return 200 OK', async () => {
