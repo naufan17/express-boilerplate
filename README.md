@@ -111,10 +111,13 @@ To view the API documentation, open the following link:
 <br/>
 ``POST /api/v1/auth/login`` - Login to existing account
 
-**User routes**:
+**Account routes**:
 <br/>
 ``GET /api/v1/account/profile`` - Get current account profile
 <br/>
+``POST /api/v1/account/update-profile`` - Update current account profile
+<br/>
+``POST /api/v1/account/update-password`` - Update current account password
 
 ## Response Format
 

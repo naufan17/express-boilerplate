@@ -24,6 +24,10 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const login = async (req: Request, res: Response): Promise<void> => {
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
+
   passport.authenticate('local', { session: false }, async (err: Error, user: User) => {
     if(err || !user) return responseUnauthorized(res, 'Invalid email or password');
 

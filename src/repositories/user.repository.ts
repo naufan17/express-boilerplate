@@ -33,3 +33,26 @@ export const findUserById = async (id: string): Promise<User | undefined> => {
     .where("id", id)
     .first();
 };
+
+export const updateProfile = async (id: string, name: string, email: string): Promise<User | undefined> => {
+  const updatedUsers = await User
+    .query()
+    .where("id", id)
+    .update({
+      name,
+      email,
+    })
+    .returning("*");
+  return updatedUsers[0];
+};
+
+export const updatePassword = async (id: string, password: string): Promise<User | undefined> => {
+  const updatedUsers = await User
+    .query()
+    .where("id", id)
+    .update({
+      password,
+    })
+    .returning("*");
+  return updatedUsers[0];
+};

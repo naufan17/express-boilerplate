@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
-import { responseInternalServerError, responseNotFound, responseOk } from '../helpers/response.helper';
-import { profileUser } from '../services/account.service';
+import { validationResult } from 'express-validator';
+import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../helpers/response.helper';
+import { profileUser, updateProfileUser, updatePasswordUser } from '../services/account.service';
 import User from '../models/user.model';
 
 export const profile = async (req: Request | any, res: Response): Promise<void> => {
@@ -15,5 +16,39 @@ export const profile = async (req: Request | any, res: Response): Promise<void> 
   } catch (error) {
     console.log(error);
     return responseInternalServerError(res, 'Error getting user profile');
+  }
+}
+
+export const updateProfile = async (req: Request | any, res: Response): Promise<void> => {
+  const { user }: { user: { id: string } } = req;
+  const { name, email } = req.body;
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
+
+  try {
+    await updateProfileUser(user.id, name, email);
+
+    return responseOk(res, 'User profile updated');
+  } catch (error) {
+    console.log(error);
+    return responseInternalServerError(res, 'Error updating user profile');
+  }
+}
+
+export const updatePassword = async (req: Request | any, res: Response): Promise<void> => {
+  const { user }: { user: { id: string } } = req;
+  const { password } = req.body;
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
+
+  try {
+    await updatePasswordUser(user.id, password);
+
+    return responseOk(res, 'User password updated');
+  } catch (error) {
+    console.log(error);
+    return responseInternalServerError(res, 'Error updating user password');
   }
 }
