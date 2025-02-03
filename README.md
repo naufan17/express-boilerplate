@@ -3,7 +3,6 @@ Minimalist project structure using express js to build REST API
 
 ## Table of Content
 - [Preparation](#preparation)
-- [Instalation](#instalation)
 - [Run Server](#run-server)
 - [Feature](#feature)
 - [Project Structure](#project-structure)
@@ -24,8 +23,6 @@ cd express-boilerplate
 ```
 rm -rf .git
 ```
-
-## Instalation
 - Rename .env.example to .env and fill in the section that must be filled
 - Custom your project name in package.json
 - Instal dependencies
