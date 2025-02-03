@@ -24,7 +24,7 @@ cd express-boilerplate
 rm -rf .git
 ```
 - Rename .env.example to .env and fill in the section that must be filled
-- Custom your project name in package.json
+- Custom your project name
 - Instal dependencies
 ```
 npm install
