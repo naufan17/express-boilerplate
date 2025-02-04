@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator';
 import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../helpers/response.helper';
 import User from '../models/user.model';
 import { registerUser } from '../services/auth.service';
-import { generateToken } from '../utils/jwt';
+import { generateToken } from '../utils/jwt.util';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password } = req.body;
