@@ -80,14 +80,16 @@ npm run start
 
 ## Project Structure
 ```
-database\          # Database migrations and seeders
+database\
+  |--migrations\   # Database migrations
+  |--seeds\        # Database seeds
 docs\              # Documentation files
-src\               # Source code
+src\
   |--app\          # Express app
   |--configs\      # Config files
   |--controllers\  # Request handler
   |--helpers\      # Helper function
-  |--middlewares\  # Pre-request middleware
+  |--middlewares\  # Middleware
   |--models\       # Database models
   |--repositories\ # Database queries
   |--routes\       # API routes
@@ -96,7 +98,8 @@ src\               # Source code
   |--utils\        # Utility function
   |--validators\   # Validation function
   |--index.ts      # Main entry point
-test\              # Test files
+test\
+  |--integration\  # Integration tests
 ```
 
 ## API Documentation
