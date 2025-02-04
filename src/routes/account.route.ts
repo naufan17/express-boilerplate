@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { authenticateJwt } from '../middlewares/authenticate.middleware';
+import { authenticateJwt } from '../middlewares/authentication.middleware';
 import { profile, updateProfile, updatePassword } from '../controllers/account.controller';
 import { updateProfileValidator, updatePasswordValidator } from '../validators/account.validator';
 
