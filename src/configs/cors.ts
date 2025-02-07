@@ -1,10 +1,8 @@
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 import config from "./config";
 
-const corsOrigin: string = config.CorsOrigin;
-
-const corsOptions: cors.CorsOptions = {
-  origin: corsOrigin,
+const corsOptions: CorsOptions = {
+  origin: config.CorsOrigin,
   methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
   allowedHeaders: "Origin, Content-Type, Content-Length, Authorization",
   credentials: true,

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { Express } from "express";
-import cors from "../configs/cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import compress from "compression";
@@ -9,6 +8,7 @@ import YAML from "yamljs";
 import passport from "../configs/passport";
 import limiter from "../configs/ratelimit";
 import logger from "../configs/logger";
+import cors from "../configs/cors";
 import api from "../routes";
 
 const openApiDocument = YAML.load('./docs/openapi.yaml');

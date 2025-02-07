@@ -1,19 +1,10 @@
 import type { Knex } from "knex";
-import dotenv from "dotenv";
-import { DatabaseConfig } from "./src/types/database.type";
-
-dotenv.config();
-
-const { 
-  DB_CLIENT,
-  DB_URL,
-  DB_SSL
-} = process.env as unknown as Required<DatabaseConfig>;
+import config from "./src/configs/config";
 
 const knexConfig: { [key: string]: Knex.Config } = {
   development: {
-    client: DB_CLIENT,
-    connection: DB_URL,
+    client: config.DBClient,
+    connection: config.DBUrl,
     pool: {
       min: 2,
       max: 10
@@ -29,10 +20,10 @@ const knexConfig: { [key: string]: Knex.Config } = {
     acquireConnectionTimeout: 10000
   },
   staging: {
-    client: DB_CLIENT,
+    client: config.DBClient,
     connection: {
-      connectionString: DB_URL,
-      ssl: DB_SSL ? { rejectUnauthorized: false } : false
+      connectionString: config.DBUrl,
+      ssl: config.DBSsl ? { rejectUnauthorized: false } : false
     },
     pool: {
       min: 2,
@@ -48,10 +39,10 @@ const knexConfig: { [key: string]: Knex.Config } = {
     acquireConnectionTimeout: 10000
   },
   production: {
-    client: DB_CLIENT,
+    client: config.DBClient,
     connection: {
-      connectionString: DB_URL,
-      ssl: DB_SSL ? { rejectUnauthorized: false } : false
+      connectionString: config.DBUrl,
+      ssl: config.DBSsl ? { rejectUnauthorized: false } : false
     },
     pool: {
       min: 2,

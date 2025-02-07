@@ -23,7 +23,7 @@ cd express-boilerplate
 ```
 rm -rf .git
 ```
-- Rename .env.example to .env and fill in the section that must be filled
+- Fill and copy your environtment file in development or production to .env or change default import from environtment file
 - Custom your project name
 - Instal dependencies
 ```
