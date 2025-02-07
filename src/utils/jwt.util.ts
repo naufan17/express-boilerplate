@@ -7,9 +7,12 @@ export const generateToken = (payload: JwtPayload): {
   expiresIn: number | undefined; 
   tokenType: string 
 } => {
-  const secretToken: string = config.JWT_SECRET_KEY ;
-  const expiredToken: number = Number(config.JWT_EXPIRED_IN);
-  const options: SignOptions = { expiresIn: expiredToken, algorithm: 'HS256' };
+  const secretToken: string = config.JwtSecretKey ;
+  const expiredToken: number = Number(config.JwtExpiredIn);
+  const options: SignOptions = { 
+    expiresIn: expiredToken, 
+    algorithm: 'HS256' 
+  };
   const token = jwt.sign(payload, secretToken, options);
 
   return {
@@ -20,8 +23,10 @@ export const generateToken = (payload: JwtPayload): {
 };
 
 export const verifyToken = (token: string): any => {
-  const secretToken: string = process.env.JWT_SECRET_KEY || '';
-  const options: VerifyOptions = { ignoreExpiration: false }
+  const secretToken: string = config.JwtSecretKey;
+  const options: VerifyOptions = { 
+    ignoreExpiration: false 
+  }
   
   return jwt.verify(token, secretToken, options);
 };

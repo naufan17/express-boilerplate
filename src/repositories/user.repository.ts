@@ -1,11 +1,7 @@
 import User from "../models/user.model";
 import { v4 as uuidv4 } from "uuid";
 
-export const create = async (
-  name: string,
-  email: string,
-  password: string,
-): Promise<User> => {
+export const create = async (name: string, email: string, password: string): Promise<User> => {
   const id: string = uuidv4();
 
   return await User
@@ -43,6 +39,7 @@ export const updateProfile = async (id: string, name: string, email: string): Pr
       email,
     })
     .returning("*");
+
   return updatedUsers[0];
 };
 
@@ -54,5 +51,6 @@ export const updatePassword = async (id: string, password: string): Promise<User
       password,
     })
     .returning("*");
+    
   return updatedUsers[0];
 };

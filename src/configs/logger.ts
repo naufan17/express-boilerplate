@@ -1,5 +1,6 @@
 import { createLogger, format, transports, Logger } from "winston";
 import { getDate } from "../utils/getdate.util";
+import config from "./config";
 
 const {
   combine,
@@ -23,7 +24,7 @@ const logger: Logger = createLogger({
   ],
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (config.NodeEnv !== 'production') {
   logger.add(new transports.Console({
     format: combine(
       colorize(),

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { Express } from "express";
-import cors from "cors";
+import cors from "../configs/cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import compress from "compression";
@@ -21,15 +21,15 @@ const stream: any = {
 
 app.use(
   limiter,
-  cors(),
+  cors,
   helmet(),
   compress(),
   passport.initialize(),
+  morgan('combined', { stream }),
   express.json(),
-  express.urlencoded({ extended: false })
+  express.urlencoded({ extended: false }),
 )
 
-app.use(morgan('combined', { stream }));
 app.use("/api/v1", api);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
 

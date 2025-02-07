@@ -2,8 +2,8 @@ import app from "./app/app";
 import knexInstance from "./configs/database";
 import config from "./configs/config";
 
-const port: number = Number(config.PORT);
-const host: string = config.HOST;
+const port: number = Number(config.Port);
+const host: string = config.Host;
 
 knexInstance.raw('SELECT 1 + 1 AS result')
   .then(() => {
