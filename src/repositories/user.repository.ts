@@ -5,13 +5,13 @@ export const create = async (name: string, email: string, password: string): Pro
   const id: string = uuidv4();
 
   return await User
-  .query()
-  .insert({
-    id,
-    name,
-    email,
-    password,
-  }).returning('*');
+    .query()
+    .insert({
+      id,
+      name,
+      email,
+      password,
+    }).returning('*');
 };
 
 export const findByEmail = async (email: string): Promise<User | undefined> => {

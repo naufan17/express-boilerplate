@@ -37,6 +37,7 @@ passport.use(
     done: any
   ): Promise<void> => {
     if (payload.sub === undefined) return done(null, false, { message: 'Invalid token' });
+    
     return done(null, { id: payload.sub });
   })
 );
