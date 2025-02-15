@@ -1,6 +1,6 @@
 import knex, { Knex } from 'knex';
 import { Model } from 'objection';
-import knexfile from '../../knexfile';
+import knexfile from './knexfile';
 import config from './config';
 
 const environment: string = config.NodeEnv;

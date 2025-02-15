@@ -3,7 +3,11 @@ export interface Config {
   Port: string;
   Host: string;
   DBClient: string;
-  DBUrl: string;
+  DBName: string;
+  DBUser: string;
+  DBPassword: string;
+  DBHost: string;
+  DBPort: string;
   DBSsl: string;
   JWTSecretKey: string;
   JWTExpiredIn: string;

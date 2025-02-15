@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: database-postgres
+    environment:
+      - "POSTGRES_USER=${DB_USER}"
+      - "POSTGRES_PASSWORD=${DB_PASSWORD}"
+      - "POSTGRES_DB=${DB_NAME}"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    networks:
+      - app-network
+    ports:
+      - "5432:${DB_PORT}"
+    restart: always
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: express-boilerplate
+    ports:
+      - "8000:${PORT}"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=database
+    depends_on:
+      - database
+    networks:
+      - app-network
+    restart: always
+  
+volumes:
+  db-data:   
+
+networks:
+  app-network:
+    driver: bridge

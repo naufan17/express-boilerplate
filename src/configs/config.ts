@@ -8,7 +8,11 @@ const config: Config = {
   Port: process.env.PORT || '8000',
   Host: process.env.HOST || 'localhost',
   DBClient: process.env.DB_CLIENT || 'postgresql',
-  DBUrl: process.env.DB_URL || 'postgresql://postgres:postgres@localhost:5433/login',
+  DBName: process.env.DB_NAME || 'login',
+  DBUser: process.env.DB_USER || 'postgres',
+  DBPassword: process.env.DB_PASSWORD || 'postgres',
+  DBHost: process.env.DB_HOST || 'localhost',
+  DBPort: process.env.DB_PORT || '5433',
   DBSsl: process.env.DB_SSL || 'false',
   JWTSecretKey: process.env.JWT_SECRET_KEY || 'secret',
   JWTExpiredIn: process.env.JWT_EXPIRED_IN || '3600000', // 1 hour
