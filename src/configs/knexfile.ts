@@ -12,8 +12,8 @@ const knexConfig: { [key: string]: Knex.Config } = {
       password: config.DBPassword
     },
     pool: {
-      min: 2,
-      max: 10
+      min: Number(config.DBPoolMin),
+      max: Number(config.DBPoolMax)
     },
     migrations: {
       tableName: "knex_migrations",
@@ -36,8 +36,8 @@ const knexConfig: { [key: string]: Knex.Config } = {
       ssl: config.DBSsl ? { rejectUnauthorized: false } : false
     },
     pool: {
-      min: 2,
-      max: 10
+      min: Number(config.DBPoolMin),
+      max: Number(config.DBPoolMax)
     },
     migrations: {
       tableName: "knex_migrations",
@@ -59,8 +59,8 @@ const knexConfig: { [key: string]: Knex.Config } = {
       ssl: config.DBSsl ? { rejectUnauthorized: false } : false
     },
     pool: {
-      min: 2,
-      max: 10
+      min: Number(config.DBPoolMin),
+      max: Number(config.DBPoolMax)
     },
     migrations: {
       tableName: "knex_migrations",

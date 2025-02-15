@@ -14,6 +14,8 @@ const config: Config = {
   DBHost: process.env.DB_HOST || 'localhost',
   DBPort: process.env.DB_PORT || '5433',
   DBSsl: process.env.DB_SSL || 'false',
+  DBPoolMin: process.env.DB_POOL_MIN || '2',
+  DBPoolMax: process.env.DB_POOL_MAX || '10',
   JWTSecretKey: process.env.JWT_SECRET_KEY || 'secret',
   JWTExpiredIn: process.env.JWT_EXPIRED_IN || '3600000', // 1 hour
   CorsOrigin: process.env.CORS_ORIGIN || '*',

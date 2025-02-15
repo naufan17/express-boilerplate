@@ -9,6 +9,8 @@ export interface Config {
   DBHost: string;
   DBPort: string;
   DBSsl: string;
+  DBPoolMin: string;
+  DBPoolMax: string;
   JWTSecretKey: string;
   JWTExpiredIn: string;
   CorsOrigin: string;
