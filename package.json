@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Express Rest API Boilerplate",
   "main": "src/index.ts",
+  "author": "Muhammad Naufan Athoillah",
+  "license": "MIT",
+  "homepage": "https://github.com/naufan17/express-boilerplate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naufan17/express-boilerplate.git"
+  },
   "scripts": {
     "dev": "concurrently \"tsc -w\" \"nodemon src/index.ts\"",
     "start": "node dist/src/index.js",
@@ -13,8 +20,6 @@
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run"
   },
-  "author": "Muhammad Naufan Athoillah",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.5",
