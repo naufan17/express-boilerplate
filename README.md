@@ -62,6 +62,16 @@ npm run dev
 npm run start
 ```
 
+## Run Server in Docker
+- Start the server
+```
+docker compose up --build
+```
+- Stop the server
+```
+docker compose down
+```
+
 ## Feature
 - **Database**: using https://knexjs.org/
 - **ORM**: using https://vincit.github.io/objection.js/
