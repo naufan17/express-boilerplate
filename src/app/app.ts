@@ -9,7 +9,7 @@ import passport from "../configs/passport";
 import limiter from "../configs/ratelimit";
 import logger from "../configs/logger";
 import cors from "../configs/cors";
-import api from "../routes";
+import api from "./routes";
 
 const openApiDocument = YAML.load('./docs/openapi.yaml');
 const app: Express = express();

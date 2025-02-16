@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { findByEmail, create } from "../repositories/user.repository";
-import User from "../models/user.model";
+import User from "../../models/user.model";
 
 export const registerUser = async (name: string, email: string, password: string): Promise<User | null> => {
   try {

@@ -2,8 +2,8 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
-import { authenticateUser } from '../services/auth.service';
-import User from '../models/user.model';
+import { authenticateUser } from '../app/api/services/auth.service';
+import User from '../app/models/user.model';
 import config from './config';
 
 passport.use(

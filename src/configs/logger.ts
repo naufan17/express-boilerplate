@@ -1,5 +1,5 @@
 import { createLogger, format, transports, Logger } from "winston";
-import { getDate } from "../utils/getdate.util";
+import { getDate } from "../app/utils/getdate.util";
 
 const {
   combine,
