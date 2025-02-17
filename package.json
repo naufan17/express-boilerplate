@@ -1,6 +1,6 @@
 {
   "name": "express-boilerplate",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Express Rest API Boilerplate",
   "main": "src/index.ts",
   "author": "Muhammad Naufan Athoillah",
