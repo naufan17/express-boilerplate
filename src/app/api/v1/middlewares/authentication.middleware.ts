@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Request, Response, NextFunction } from "express";
-import { responseUnauthorized } from "../../helpers/response.helper";
+import { responseUnauthorized } from "../../../helper/response";
 
 export const authenticateJwt = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', { session: false }, (err: Error, user: { id: string }) => {

@@ -1,10 +1,10 @@
 import passport from 'passport';
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../../helpers/response.helper';
+import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../../../helper/response';
 import { registerUser } from '../services/auth.service';
-import { generateToken } from '../../utils/jwt.util';
-import User from '../../models/user.model';
+import { generateToken } from '../../../util/jwt';
+import User from '../models/user.model';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password } = req.body;

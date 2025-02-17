@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../../helpers/response.helper';
+import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../../../helper/response';
 import { profileUser, updateProfileUser, updatePasswordUser } from '../services/account.service';
-import User from '../../models/user.model';
+import User from '../models/user.model';
 
 export const profile = async (req: Request | any, res: Response): Promise<void> => {
   const { user }: { user: { id: string } } = req;
