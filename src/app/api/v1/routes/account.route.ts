@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
-import { authenticateJwt } from '../api/middlewares/authentication.middleware';
-import { profile, updateProfile, updatePassword } from '../api/controllers/account.controller';
+import { authenticateJwt } from '../middlewares/authentication.middleware';
+import { profile, updateProfile, updatePassword } from '../controllers/account.controller';
 import { updateProfileValidator, updatePasswordValidator } from '../validators/account.validator';
 
 const router: Router = express.Router();

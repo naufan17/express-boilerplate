@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import jwt, { JwtPayload, SignOptions, VerifyOptions } from 'jsonwebtoken';
-import config from '../../configs/config';
+import config from '../config/config';
 
 export const generateToken = (payload: JwtPayload): { 
   accessToken: string; 

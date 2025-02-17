@@ -5,11 +5,11 @@ import helmet from "helmet";
 import compress from "compression";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
-import passport from "../configs/passport";
-import limiter from "../configs/ratelimit";
-import logger from "../configs/logger";
-import cors from "../configs/cors";
-import api from "./routes";
+import passport from "./config/passport";
+import limiter from "./config/ratelimit";
+import logger from "./config/logger";
+import cors from "./config/cors";
+import apiV1 from "./api/v1/routes";
 
 const openApiDocument = YAML.load('./docs/openapi.yaml');
 const app: Express = express();
@@ -30,7 +30,7 @@ app.use(
   express.urlencoded({ extended: false }),
 )
 
-app.use("/api/v1", api);
+app.use("/api/v1", apiV1);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
 
 export default app;

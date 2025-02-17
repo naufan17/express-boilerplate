@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { findUserById, updateProfile, updatePassword } from "../repositories/user.repository";
-import User from "../../models/user.model";
+import User from "../models/user.model";
 
 export const profileUser = async (id: string): Promise<User | null> => {
   try {

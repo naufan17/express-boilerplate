@@ -90,28 +90,29 @@ docker compose down
 
 ## Project Structure
 ```
-docs\                   # Documentation files
+docs\                     # Documentation files
 src\
   |--app\
-    |--app.ts           # Main app entry point
-    |--helpers\         # Helper function
-    |--models\          # Database models
-    |--routes\          # API routes
-    |--utils\           # Utility function
-    |--validators\      # Validation function
     |--api\        
-      |--controllers\   # Request handler
-      |--middlewares\   # Middleware
-      |--repositories\  # Database queries
-      |--services\      # Business logic
-  |--configs\           # Config files
+      |--v1\        
+        |--controllers\   # Request handler
+        |--middlewares\   # Middleware
+        |--models\        # Database models
+        |--repositories\  # Database queries
+        |--routes\        # API routes
+        |--services\      # Business logic
+        |--validators\    # Validation function
+    |--config\            # Config files
+    |--helper\            # Helper function
+    |--type\              # Typescript types
+    |--util\              # Utility function
+    |--app.ts             # Main app entry point
   |--database\
-    |--migrations\      # Database migrations
-    |--seeds\           # Database seeds
-  |--types\             # Typescript types
-  |--index.ts           # Main entry point
+    |--migrations\        # Database migrations
+    |--seeds\             # Database seeds
+  |--index.ts             # Main entry point
 test\
-  |--integration\       # Integration tests
+  |--integration\         # Integration tests
 ```
 
 ## API Documentation

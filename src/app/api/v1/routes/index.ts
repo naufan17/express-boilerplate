@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from 'express';
-import { responseInternalServerError, responseNotFound, responseOk } from '../helpers/response.helper';
+import { responseInternalServerError, responseNotFound, responseOk } from '../../../helper/response';
 import authRoute from './auth.route';
 import accountRoute from './account.route';
 
