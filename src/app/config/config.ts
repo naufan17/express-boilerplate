@@ -19,8 +19,8 @@ const config: Config = {
   JWTSecretKey: process.env.JWT_SECRET_KEY || 'secret',
   JWTExpiredIn: process.env.JWT_EXPIRED_IN || '3600000', // 1 hour
   CorsOrigin: process.env.CORS_ORIGIN || '*',
-  RateLimitWindowMs: process.env.RATE_LIMIT_WINDOW_MS || '600000', // 10 minutes
   RateLimitMax: process.env.RATE_LIMIT_MAX || '100',
+  RateLimitWindowMs: process.env.RATE_LIMIT_WINDOW_MS || '60000', // 1 minutes
 };
 
 export default config;
