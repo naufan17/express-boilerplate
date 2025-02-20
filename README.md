@@ -1,4 +1,4 @@
-# Bolierplate Express JS REST API
+# Boilerplate Express JS REST API
 Minimalist project structure using express js to build REST API
 
 ## Table of Content

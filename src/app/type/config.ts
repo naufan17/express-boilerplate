@@ -11,8 +11,11 @@ export interface Config {
   DBSsl: string;
   DBPoolMin: string;
   DBPoolMax: string;
-  JWTSecretKey: string;
-  JWTExpiredIn: string;
+  JWTAccessSecretKey: string;
+  JWTRefreshSecretKey: string;
+  JWTAccessExpiredIn: string;
+  JWTRefreshExpiredIn: string;
+  CookieSecretKey: string;
   CorsOrigin: string;
   RateLimitWindowMs: string;
   RateLimitMax: string;

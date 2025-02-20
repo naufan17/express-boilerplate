@@ -16,8 +16,11 @@ const config: Config = {
   DBSsl: process.env.DB_SSL || 'false',
   DBPoolMin: process.env.DB_POOL_MIN || '2',
   DBPoolMax: process.env.DB_POOL_MAX || '10',
-  JWTSecretKey: process.env.JWT_SECRET_KEY || 'secret',
-  JWTExpiredIn: process.env.JWT_EXPIRED_IN || '3600000', // 1 hour
+  JWTAccessSecretKey: process.env.JWT_ACCESS_SECRET_KEY || 'secret',
+  JWTRefreshSecretKey: process.env.JWT_REFRESH_SECRET_KEY || 'secret',
+  JWTAccessExpiredIn: process.env.JWT_ACCESS_EXPIRED_IN || '3600000', // 1 hour
+  JWTRefreshExpiredIn: process.env.JWT_REFRESH_EXPIRED_IN || '2592000000', // 30 days
+  CookieSecretKey: process.env.COOKIE_SECRET_KEY || 'secret',
   CorsOrigin: process.env.CORS_ORIGIN || '*',
   RateLimitMax: process.env.RATE_LIMIT_MAX || '100',
   RateLimitWindowMs: process.env.RATE_LIMIT_WINDOW_MS || '60000', // 1 minutes

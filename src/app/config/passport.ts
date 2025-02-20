@@ -31,7 +31,7 @@ passport.use(
   new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     ignoreExpiration: false,
-    secretOrKey: config.JWTSecretKey,
+    secretOrKey: config.JWTAccessSecretKey,
   }, async (
     payload: any, 
     done: any

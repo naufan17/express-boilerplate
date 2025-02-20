@@ -3,9 +3,9 @@ import type { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('users', (table) => {
     table.uuid('id').primary();
-    table.string('name', 100).notNullable();
-    table.string('email', 100).notNullable().unique();
-    table.string('password', 100).notNullable();
+    table.string('name', 128).notNullable();
+    table.string('email', 128).notNullable().unique();
+    table.string('password', 255).notNullable();
     table.timestamps(true, true);
   })
 }

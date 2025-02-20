@@ -1,7 +1,7 @@
 import User from "../models/user.model";
 import { v4 as uuidv4 } from "uuid";
 
-export const create = async (name: string, email: string, password: string): Promise<User> => {
+export const createUser = async (name: string, email: string, password: string): Promise<User> => {
   const id: string = uuidv4();
 
   return await User
@@ -14,7 +14,7 @@ export const create = async (name: string, email: string, password: string): Pro
     }).returning('*');
 };
 
-export const findByEmail = async (email: string): Promise<User | undefined> => {
+export const findUserByEmail = async (email: string): Promise<User | undefined> => {
   return await User
     .query()
     .select("id", "email", "password")
