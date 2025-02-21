@@ -126,6 +126,8 @@ To view the API documentation, open the following link:
 ``POST /api/v1/auth/register`` - Create new account
 <br/>
 ``POST /api/v1/auth/login`` - Login to existing account
+<br/>
+``GET /api/v1/auth/refresh`` - Refresh access token
 
 **Account routes**:
 <br/>
@@ -140,7 +142,7 @@ To view the API documentation, open the following link:
 - **Success Response**:
 ```
 {
-  "success": true,
+  "statusCode": 200,
   "message": "success message",
   "data": {
     "key": "value",
@@ -150,6 +152,6 @@ To view the API documentation, open the following link:
 - **Error Response**:
 ```
 {
-  "success": false,
+  "statusCode": 400,
   "message": "error message",
 }
