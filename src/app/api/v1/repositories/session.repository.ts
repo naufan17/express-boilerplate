@@ -23,7 +23,7 @@ export const findSessionById = async (id: string): Promise<Session | undefined> 
     .first();
 };
 
-export const updateLastActive = async (id: string, lastActiveAt: Date): Promise<Session | undefined> => {
+export const updateLastActive = async (id: string, lastActiveAt: Date): Promise<Session> => {
   const updatedSessions = await Session
     .query()
     .where("id", id)
@@ -34,7 +34,7 @@ export const updateLastActive = async (id: string, lastActiveAt: Date): Promise<
   return updatedSessions[0];
 };
 
-export const endSession = async (id: string): Promise<Session | undefined> => {
+export const endSession = async (id: string): Promise<Session> => {
   const endSessions = await Session
     .query()
     .where("id", id)

@@ -1,15 +1,8 @@
 import { createLogger, format, transports, Logger } from "winston";
-import { getDate } from "../util/getdate";
+import { fullDateNow } from "../util/fullDateNow";
 
-const {
-  combine,
-  timestamp,
-  json,
-  simple,
-  colorize,
-} = format;
-
-const dateFormat: string = getDate();
+const { combine, timestamp, json, simple, colorize } = format;
+const dateFormat: string = fullDateNow();
 
 const logger: Logger = createLogger({
   level: "info",

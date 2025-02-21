@@ -8,13 +8,6 @@ export const responseOk = <T>(res: Response, message: string, data?: T) => {
   });
 };
 
-export const responseUpdated = (res: Response, message: string) => {
-  res.status(200).json({
-    statusCode: 200,
-    message,
-  });
-}
-
 export const responseCreated = (res: Response, message: string) => {
   res.status(201).json({
     statusCode: 201,

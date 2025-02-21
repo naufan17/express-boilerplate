@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
+import { Strategy as CookieStrategy } from 'passport-cookie';
 import { authenticateUser } from '../api/v1/services/auth.service';
+import { verifyTJWTRefresh } from '../util/jwt';
 import User from '../api/v1/models/user.model';
 import config from './config';
 
@@ -13,11 +14,11 @@ passport.use(
   }, async (
     email: string, 
     password: string, 
-    done: any
+    done: (error: unknown, user?: User | false, info?: { message: string }) => void
   ): Promise<void> => {
     try {
       const user: User | null = await authenticateUser(email, password);
-      if (!user) return done(null, false, { message: 'Invalid email or password' });
+      if (user === null) return done(null, false, { message: 'Invalid email or password' });
 
       return done(null, user);
     } catch (error) {
@@ -33,11 +34,26 @@ passport.use(
     ignoreExpiration: false,
     secretOrKey: config.JWTAccessSecretKey,
   }, async (
-    payload: any, 
-    done: any
+    payload: { sub: string }, 
+    done: (error: unknown, user?: { id: string } | false, info?: { message: string }) => void
   ): Promise<void> => {
-    if (payload.sub === undefined) return done(null, false, { message: 'Invalid token' });
+    if (!payload.sub) return done(null, false, { message: 'Access token is invalid' });
     
+    return done(null, { id: payload.sub });
+  })
+);
+
+passport.use(
+  new CookieStrategy({
+    cookieName: 'refreshToken',
+    signed: true,
+  }, async (
+    token: string,
+    done: (error: unknown, user?: { id: string } | false, info?: { message: string }) => void
+  ): Promise<void> => {
+    const payload: { sub: string } = verifyTJWTRefresh(token);
+    if (!payload.sub) return done(null, false, { message: 'Refresh token is invalid' });
+
     return done(null, { id: payload.sub });
   })
 );

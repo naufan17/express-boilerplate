@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../../../helper/response';
+import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../../../helper/responseBody';
 import { profileUser, updateProfileUser, updatePasswordUser } from '../services/account.service';
 import User from '../models/user.model';
 
@@ -10,7 +10,7 @@ export const profile = async (req: Request | any, res: Response): Promise<void> 
 
   try {
     const userProfileData: User | null = await profileUser(user.id);
-    if(user === null) return responseNotFound(res, 'User not found');
+    if(userProfileData === null) return responseNotFound(res, 'User not found');
 
     return responseOk(res, 'User profile found', userProfileData);
   } catch (error) {
@@ -22,8 +22,8 @@ export const profile = async (req: Request | any, res: Response): Promise<void> 
 export const updateProfile = async (req: Request | any, res: Response): Promise<void> => {
   const { user }: { user: { id: string } } = req;
   const { name, email } = req.body;
-  const errors = validationResult(req);
 
+  const errors = validationResult(req);
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   try {
@@ -40,8 +40,8 @@ export const updateProfile = async (req: Request | any, res: Response): Promise<
 export const updatePassword = async (req: Request | any, res: Response): Promise<void> => {
   const { user }: { user: { id: string } } = req;
   const { password } = req.body;
-  const errors = validationResult(req);
 
+  const errors = validationResult(req);
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   try {

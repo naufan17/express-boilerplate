@@ -30,7 +30,7 @@ export const findUserById = async (id: string): Promise<User | undefined> => {
     .first();
 };
 
-export const updateProfile = async (id: string, name: string, email: string): Promise<User | undefined> => {
+export const updateProfile = async (id: string, name: string, email: string): Promise<User> => {
   const updatedUsers = await User
     .query()
     .where("id", id)
@@ -43,7 +43,7 @@ export const updateProfile = async (id: string, name: string, email: string): Pr
   return updatedUsers[0];
 };
 
-export const updatePassword = async (id: string, password: string): Promise<User | undefined> => {
+export const updatePassword = async (id: string, password: string): Promise<User> => {
   const updatedUsers = await User
     .query()
     .where("id", id)
