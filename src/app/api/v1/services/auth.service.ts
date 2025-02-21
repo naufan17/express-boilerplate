@@ -1,7 +1,9 @@
 import bcrypt from "bcryptjs";
 import { findUserByEmail, createUser } from "../repositories/user.repository";
 import User from "../models/user.model";
-import { generateJWTAccess, generateJWTRefresh } from "../../../util/jwt";
+import { generateJWTAccess, generateJWTRefresh, verifyTJWTRefresh } from "../../../util/jwt";
+import { createSession, updateLastActive } from "../repositories/session.repository";
+import { AccessToken, RefreshToken } from "../../../type/token";
 
 export const registerUser = async (name: string, email: string, password: string): Promise<User | null> => {
   try {
@@ -18,31 +20,28 @@ export const registerUser = async (name: string, email: string, password: string
   }
 }
 
-export const loginUser = async (userId: string): Promise<{ 
-  accessToken: {
-    accessToken: string; 
-    expiresIn: number | undefined; 
-    tokenType: string
-  }, 
-  refreshToken: {
-    refreshToken: string; 
-    expiresIn: number | undefined; 
-    tokenType: string
-  } 
-}> => {
-  const accessToken: { 
-    accessToken: string; 
-    expiresIn: number | undefined; 
-    tokenType: string 
-  } = generateJWTAccess({ sub: userId });
-
-  const refreshToken: { 
-    refreshToken: string; 
-    expiresIn: number | undefined; 
-    tokenType: string 
-  } = generateJWTRefresh({ sub: userId });
+export const loginUser = async (userId: string, ipAddress: string, userAgent: string): Promise<{ accessToken: AccessToken, refreshToken: RefreshToken } | null> => {
+  const accessToken: AccessToken = generateJWTAccess({ sub: userId });
+  const refreshToken: RefreshToken = generateJWTRefresh({ sub: userId });
+  if (!accessToken || !refreshToken) return null;
+  
+  // const session: any = await createSession(userId, ipAddress, userAgent, new Date(refreshToken.expiresIn));
+  // if (!session) return null;
 
   return { accessToken, refreshToken };
+}
+
+export const refreshAccessToken = async (refreshToken: string): Promise<AccessToken | null> => {
+  const payload: { sub: string } = await verifyTJWTRefresh(refreshToken);
+  if (!payload) return null;
+
+  const accessToken: AccessToken = generateJWTAccess({ sub: payload.sub });
+  if (!accessToken) return null;
+
+  // const session: any = await updateLastActive(payload.sub, new Date());
+  // if (!session) return null;
+
+  return accessToken;
 }
 
 export const authenticateUser = async (email: string, password: string): Promise<User | null> => {

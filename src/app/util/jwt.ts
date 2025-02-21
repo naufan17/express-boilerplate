@@ -4,7 +4,7 @@ import config from '../config/config';
 
 export const generateJWTAccess = (payload: JwtPayload): { 
   accessToken: string; 
-  expiresIn: number | undefined; 
+  expiresIn: number; 
   tokenType: string 
 } => {
   const secretToken: string = config.JWTAccessSecretKey ;
@@ -24,7 +24,7 @@ export const generateJWTAccess = (payload: JwtPayload): {
 
 export const generateJWTRefresh = (payload: JwtPayload): { 
   refreshToken: string; 
-  expiresIn: number | undefined; 
+  expiresIn: number; 
   tokenType: string 
 } => {
   const secretToken: string = config.JWTRefreshSecretKey ;
