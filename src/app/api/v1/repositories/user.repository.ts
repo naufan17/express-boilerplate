@@ -9,7 +9,8 @@ export const createUser = async (name: string, email: string, password: string):
       name,
       email,
       password,
-    }).returning('*');
+    })
+    .returning('*');
 };
 
 export const findUserByEmail = async (email: string): Promise<User | undefined> => {
@@ -24,31 +25,29 @@ export const findUserById = async (id: string): Promise<User | undefined> => {
   return await User
     .query()
     .select("id", "name", "email")
-    .where("id", id)
+    .findById(id)
     .first();
 };
 
-export const updateProfile = async (id: string, name: string, email: string): Promise<User> => {
-  const user = await User
+export const updateProfile = async (id: string, name: string, email: string): Promise<User | undefined> => {
+  return User
     .query()
-    .where("id", id)
+    .findById(id)
     .update({
       name,
       email,
     })
-    .returning("*");
-
-  return user[0];
+    .returning("*")
+    .first();
 };
 
-export const updatePassword = async (id: string, password: string): Promise<User> => {
-  const user = await User
+export const updatePassword = async (id: string, password: string): Promise<User | undefined> => {
+  return await User
     .query()
-    .where("id", id)
+    .findById(id)
     .update({
       password,
     })
-    .returning("*");
-    
-  return user[0];
+    .returning("*")
+    .first();
 };

@@ -27,7 +27,7 @@ export const loginUser = async (userId: string, ipAddress: string, userAgent: st
     
     const accessToken: AccessToken = generateJWTAccess({ sub: userId });
 
-    const newSession: Session = await createSession(userId, ipAddress, userAgent);
+    const newSession: Session | undefined = await createSession(userId, ipAddress, userAgent);
     if (!newSession) return null;
 
     const refreshToken: RefreshToken = generateJWTRefresh({ sub: newSession.id });
@@ -44,7 +44,7 @@ export const refreshAccessToken = async (sessionId: string): Promise<AccessToken
     const session: Session | undefined = await findSessionById(sessionId);
     if (!session || session.expires_at < new Date()) return null;
 
-    const updateSession: Session = await updateLastActive(sessionId);
+    const updateSession: Session | undefined = await updateLastActive(sessionId);
     if (!updateSession) return null;
 
     const accessToken: AccessToken = generateJWTAccess({ sub: session.user_id });  

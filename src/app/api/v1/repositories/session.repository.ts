@@ -11,14 +11,15 @@ export const createSession = async (userId: string, ipAddress: string, userAgent
       ip_address: ipAddress,
       user_agent: userAgent,
       expires_at: new Date(Date.now() + Number(config.JWTRefreshExpiredIn))
-    }).returning('*');
+    })
+    .returning('*');
 };
 
 export const findSessionById = async (id: string): Promise<Session | undefined> => {
   return await Session
     .query()
     .select("id", "user_id", "expires_at")
-    .where("id", id)
+    .findById(id)
     .first();
 };
 
@@ -30,24 +31,23 @@ export const findSessionByUserId = async (userId: string): Promise<Session[] | u
     .orderBy("login_at", "desc");
 };
 
-export const updateLastActive = async (id: string): Promise<Session> => {
-  const session = await Session
+export const updateLastActive = async (id: string): Promise<Session | undefined> => {
+  return await Session
     .query()
-    .where("id", id)
+    .findById(id)
     .update({
       last_active_at: new Date()
-    }).returning("*");
-
-  return session[0];
+    })
+    .returning("*")
+    .first();
 };
 
-export const updateExpires = async (userId: string): Promise<Session> => {
-  const session = await Session
+export const updateExpires = async (userId: string): Promise<Session[] | undefined> => {
+  return await Session
     .query()
     .where("user_id", userId)
     .update({
       expires_at: new Date()
-    }).returning("*");
-
-  return session[0];
+    })
+    .returning("*");
 };
