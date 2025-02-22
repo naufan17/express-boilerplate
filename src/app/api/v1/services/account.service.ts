@@ -24,13 +24,13 @@ export const sessionUser = async (id: string): Promise<formattedSession[] | null
 
     const formattedSession: formattedSession[] = sessions.map(session => ({
       id: session.id,
-      user_id: session.user_id,
-      ip_address: session.ip_address,
-      user_agent: session.user_agent,
+      userId: session.user_id,
+      ipAddress: session.ip_address,
+      userAgent: session.user_agent,
       status: session.expires_at > new Date() ? "active" : "expired",
-      login_at: session.login_at,
-      last_active_at: session.last_active_at,
-      expires_at: session.expires_at,
+      loginAt: session.login_at,
+      lastActiveAt: session.last_active_at,
+      expiresAt: session.expires_at,
     }));
 
     return formattedSession;

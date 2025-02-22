@@ -1,10 +1,10 @@
 export interface formattedSession {
   id: string;
-  user_id: string;
-  ip_address: string;
-  user_agent: string;
+  userId: string;
+  ipAddress: string;
+  userAgent: string;
   status: string;
-  login_at: Date;
-  last_active_at: Date;
-  expires_at: Date;
+  loginAt: Date;
+  lastActiveAt: Date;
+  expiresAt: Date;
 }

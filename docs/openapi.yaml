@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Express Rest API Bolerplate
-  version: 1.0.0
+  version: 1.2.0
   description: Minimalist project structure using express js to build REST API
 servers:
   - url: http://localhost:8000
@@ -42,26 +42,26 @@ paths:
                   type: string
                   example: PasswordPassword12
       responses:
-        '200':
-          description: Account created successfully
+        '201':
+          description: User created successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '400':
-          description: Bad request
+          description: Input validation error
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '409':
@@ -71,8 +71,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '500':
@@ -82,8 +82,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
   /api/v1/auth/login:
@@ -105,14 +105,14 @@ paths:
                   example: password
       responses:
         '200':
-          description: Login successful
+          description: Login successfull
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
                   data:
@@ -125,14 +125,14 @@ paths:
                       tokenType:
                         type: string
         '400':
-          description: Bad request
+          description: Input validation error
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '401':
@@ -142,8 +142,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '500':
@@ -153,10 +153,59 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
+  /api/v1/auth/refresh:
+    get:
+      summary: Refresh access token
+      tags: [Auth]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Refresh access token successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
+                      expiresIn:
+                        type: number
+                      tokenType:
+                        type: string
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                  message:
+                    type: string
+        '500':
+          description: Error refreshing access token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                  message:
+                    type: string 
   /api/v1/account/profile:
     get:
       summary: Get current account profile
@@ -171,8 +220,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode::
+                    type: number
                   message:
                     type: string
                   data:
@@ -185,14 +234,14 @@ paths:
                       email:
                         type: string
         '401':
-          description: Unauthorized
+          description: Invalid access token
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '500':
@@ -202,7 +251,64 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
+                  statusCode:
+                    type: number
+                  message:
+                    type: string
+  /api/v1/account/session:
+    get:
+      summary: Get current account session
+      tags: [Account]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Get current users session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      ipAddress:
+                        type: string
+                      userAgent:
+                        type: string
+                      status:
+                        type: string
+                      loginAt:
+                        type: string
+                      lastActiveAt:
+                        type: string
+                      expiresAt:
+                        type: string
+        '401':
+          description: Invalid access token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Error getting users session
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
                     type: boolean
                   message:
                     type: string
@@ -227,36 +333,36 @@ paths:
                   example: jhon@example.com
       responses:
         '200':
-          description: Account profile updated successfully
+          description: Profile updated successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
+                  statusCode:
                     type: boolean
                   message:
                     type: string
         '400':
-          description: Bad request
+          description: Input validation error
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
+                  statusCode:
                     type: boolean
                   message:
                     type: string
         '401':
-          description: Unauthorized
+          description: Invalid access token
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '500':
@@ -266,8 +372,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
   /api/v1/account/update-password:
@@ -291,36 +397,36 @@ paths:
                   example: password
       responses:
         '200':
-          description: Account password updated successfully
+          description: Password updated successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '400':
-          description: Bad request
+          description: Invalid validation error
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '401':
-          description: Unauthorized
+          description: Invalid access token
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string
         '500':
@@ -330,7 +436,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
+                  statusCode:
+                    type: number
                   message:
                     type: string

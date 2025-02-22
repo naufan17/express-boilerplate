@@ -133,6 +133,8 @@ To view the API documentation, open the following link:
 <br/>
 ``GET /api/v1/account/profile`` - Get current account profile
 <br/>
+``GET /api/v1/account/session`` - Get current account session
+<br/>
 ``POST /api/v1/account/update-profile`` - Update current account profile
 <br/>
 ``POST /api/v1/account/update-password`` - Update current account password
