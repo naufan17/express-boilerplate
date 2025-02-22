@@ -2,20 +2,35 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../../../helper/responseBody';
-import { profileUser, updateProfileUser, updatePasswordUser } from '../services/account.service';
+import { profileUser, updateProfileUser, updatePasswordUser, sessionUser } from '../services/account.service';
 import User from '../models/user.model';
+import { formattedSession } from '../../../type/session';
 
 export const profile = async (req: Request | any, res: Response): Promise<void> => {
   const { user }: { user: { id: string } } = req;
 
   try {
-    const userProfileData: User | null = await profileUser(user.id);
-    if(userProfileData === null) return responseNotFound(res, 'user not found');
+    const userProfile: User | null = await profileUser(user.id);
+    if(userProfile === null) return responseNotFound(res, 'user not found');
 
-    return responseOk(res, 'user profile found', userProfileData);
+    return responseOk(res, 'user profile found', userProfile);
   } catch (error) {
     console.log(error);
     return responseInternalServerError(res, 'error getting user profile');
+  }
+}
+
+export const session = async (req: Request | any, res: Response): Promise<void> => {
+  const { user }: { user: { id: string } } = req;
+
+  try {
+    const userSession: formattedSession[] | null = await sessionUser(user.id);
+    if(userSession === null) return responseNotFound(res, 'user session not found');
+
+    return responseOk(res, 'user session found', userSession);
+  } catch (error) {
+    console.log(error);
+    return responseInternalServerError(res, 'error getting user session');
   }
 }
 

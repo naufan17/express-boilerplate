@@ -22,12 +22,12 @@ export const findSessionById = async (id: string): Promise<Session | undefined> 
     .first();
 };
 
-export const findSessionByUserId = async (userId: string): Promise<Session | undefined> => {
+export const findSessionByUserId = async (userId: string): Promise<Session[] | undefined> => {
   return await Session
     .query()
-    .select("id", "user_id", "ip_address", "user_agent", "login_at", "last_active_at", "expires_at")
+    .select("id", "ip_address", "user_agent", "login_at", "last_active_at", "expires_at")
     .where("user_id", userId)
-    .first();
+    .orderBy("login_at", "desc");
 };
 
 export const updateLastActive = async (id: string): Promise<Session> => {

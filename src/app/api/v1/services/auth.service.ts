@@ -23,9 +23,8 @@ export const registerUser = async (name: string, email: string, password: string
 
 export const loginUser = async (userId: string, ipAddress: string, userAgent: string): Promise<{ accessToken: AccessToken, refreshToken: RefreshToken } | null> => {
   try {    
-    const endSessions: Session = await updateExpires(userId);
-    if (!endSessions) return null;
-
+    await updateExpires(userId);
+    
     const accessToken: AccessToken = generateJWTAccess({ sub: userId });
 
     const newSession: Session = await createSession(userId, ipAddress, userAgent);
