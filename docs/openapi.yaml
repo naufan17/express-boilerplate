@@ -270,7 +270,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: boolean
+                    type: string
                   message:
                     type: string
                   data:
@@ -298,7 +298,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: boolean
+                    type: string
                   message:
                     type: string
         '500':
@@ -309,7 +309,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: boolean
+                    type: string
                   message:
                     type: string
   /api/v1/account/update-profile:
@@ -340,7 +340,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: boolean
+                    type: string
                   message:
                     type: string
         '400':
@@ -351,7 +351,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: boolean
+                    type: string
                   message:
                     type: string
         '401':
