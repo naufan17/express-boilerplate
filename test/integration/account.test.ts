@@ -36,6 +36,41 @@ describe('GET /api/v1/account/profile', () => {
   });
 });
 
+describe('GET /api/v1/account/session', () => {
+  it('should return 200 OK', async () => {
+    const loginResponse = await request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'david@example.com',
+        password: 'PasswordPassword12',
+      });
+
+    const accessToken: string = loginResponse.body.data.accessToken;
+
+    const response = await request(app)
+      .get('/api/v1/account/session')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    expect(response.status).toBe(200);
+  });
+
+  it('should return 401 Unauthorized', async () => {
+    const accessToken: string = 'secret';
+    const response = await request(app)
+      .get('/api/v1/account/session')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should return 401 Unauthorized', async () => {
+    const response = await request(app)
+      .get('/api/v1/account/session');
+
+    expect(response.status).toBe(401);
+  });
+});
+
 describe('POST /api/v1/account/update-profile', () => {
   it('should return 200 OK', async () => {
     const loginResponse = await request(app)
