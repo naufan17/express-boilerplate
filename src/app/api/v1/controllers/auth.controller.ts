@@ -5,9 +5,9 @@ import { validationResult } from 'express-validator';
 import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../../../helper/responseBody';
 import { registerUser, loginUser, refreshAccessToken } from '../services/auth.service';
 import { AccessToken, RefreshToken } from '../../../type/token';
+import { setCookie } from '../../../helper/setCookie';
 import User from '../models/user.model';
 import config from '../../../config/config';
-import { setCookie } from '../../../helper/setCookie';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const { name, email, password } = req.body;
@@ -17,12 +17,12 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
   try {
     const user: User | null = await registerUser(name, email, password);
-    if (user === null) return responseConflict(res, 'User already exists');
+    if (user === null) return responseConflict(res, 'user already exists');
 
-    return responseCreated(res, 'User created successfully');
+    return responseCreated(res, 'user created successfully');
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'Error creating user');
+    return responseInternalServerError(res, 'error creating user');
   }
 };
 
@@ -34,11 +34,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   passport.authenticate('local', { session: false }, async (err: Error, user: User, info?: { message: string }) => {
-    if(err || !user) return responseUnauthorized(res, info?.message || 'Invalid email or password');
+    if(err || !user) return responseUnauthorized(res, info?.message || 'invalid email or password');
 
     try {
       const tokens = await loginUser(user.id, ipAddress, userAgent);
-      if (!tokens || !tokens.accessToken || !tokens.refreshToken) return responseInternalServerError(res, 'Error logging in user');
+      if (!tokens || !tokens.accessToken || !tokens.refreshToken) return responseInternalServerError(res, 'error logging in user');
 
       const { accessToken, refreshToken } : { accessToken: AccessToken, refreshToken: RefreshToken } = tokens;
 
@@ -47,24 +47,24 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         expires: new Date(Date.now() + Number(config.JWTRefreshExpiredIn))
       });
 
-      return responseOk(res, 'Login successful', accessToken);
+      return responseOk(res, 'login successful', accessToken);
     } catch (error) {
       console.log(error);
-      return responseInternalServerError(res, 'Error logging in user');
+      return responseInternalServerError(res, 'error logging in user');
     }    
   })(req, res);
 };
 
 export const refresh = async (req: Request | any, res: Response): Promise<void> => {
-  const { user }: { user: { id: string } } = req;
+  const { session }: { session: { id: string } } = req;
 
   try {
-    const accessToken: AccessToken | null = await refreshAccessToken(user.id);
-    if (accessToken === null) return responseInternalServerError(res, 'Error refreshing access token');
+    const accessToken: AccessToken | null = await refreshAccessToken(session.id);
+    if (accessToken === null) return responseInternalServerError(res, 'error refreshing access token');
 
-    return responseOk(res, 'Access token refreshed', accessToken);
+    return responseOk(res, 'access token refreshed', accessToken);
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'Error refreshing access token');
+    return responseInternalServerError(res, 'error refreshing access token');
   }    
 };

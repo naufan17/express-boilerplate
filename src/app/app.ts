@@ -29,9 +29,9 @@ app.use(
   compress(),
   cookieParser(cookieSecretKey),
   passport.initialize(),
-  morgan('combined', { stream }),
   express.json(),
   express.urlencoded({ extended: false }),
+  morgan('combined', { stream }),
 )
 
 app.use("/api/v1", apiV1);

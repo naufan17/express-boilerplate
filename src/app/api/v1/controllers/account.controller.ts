@@ -10,12 +10,12 @@ export const profile = async (req: Request | any, res: Response): Promise<void> 
 
   try {
     const userProfileData: User | null = await profileUser(user.id);
-    if(userProfileData === null) return responseNotFound(res, 'User not found');
+    if(userProfileData === null) return responseNotFound(res, 'user not found');
 
-    return responseOk(res, 'User profile found', userProfileData);
+    return responseOk(res, 'user profile found', userProfileData);
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'Error getting user profile');
+    return responseInternalServerError(res, 'error getting user profile');
   }
 }
 
@@ -28,12 +28,12 @@ export const updateProfile = async (req: Request | any, res: Response): Promise<
 
   try {
     const userProfileData: User | null =  await updateProfileUser(user.id, name, email);
-    if(userProfileData === null) return responseNotFound(res, 'User not found');
+    if(userProfileData === null) return responseNotFound(res, 'user not found');
 
-    return responseOk(res, 'User profile updated');
+    return responseOk(res, 'user profile updated');
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'Error updating user profile');
+    return responseInternalServerError(res, 'error updating user profile');
   }
 }
 
@@ -46,11 +46,11 @@ export const updatePassword = async (req: Request | any, res: Response): Promise
 
   try {
     const userProfileData: User | null = await updatePasswordUser(user.id, password);
-    if(userProfileData === null) return responseNotFound(res, 'User not found');
+    if(userProfileData === null) return responseNotFound(res, 'user not found');
 
-    return responseOk(res, 'User password updated');
+    return responseOk(res, 'user password updated');
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'Error updating user password');
+    return responseInternalServerError(res, 'error updating user password');
   }
 }

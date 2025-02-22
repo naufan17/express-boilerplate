@@ -9,7 +9,6 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamp('login_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('last_active_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('expires_at').notNullable();
-    table.timestamps(true, true);
   })
 }
 

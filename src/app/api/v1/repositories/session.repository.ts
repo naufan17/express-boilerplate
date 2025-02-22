@@ -1,47 +1,53 @@
+import config from "../../../config/config";
 import Session from "../models/session.model";
 import { v4 as uuidv4 } from "uuid";
 
-export const createSession = async (userId: string, ipAddress: string, userAgent: string, expiresAt: Date): Promise<Session> => {
-  const id: string = uuidv4();
-  
+export const createSession = async (userId: string, ipAddress: string, userAgent: string): Promise<Session> => {
   return await Session
     .query()
     .insert({
-      id,
-      userId,
-      ipAddress,
-      userAgent,
-      expiresAt
+      id: uuidv4(),
+      user_id: userId,
+      ip_address: ipAddress,
+      user_agent: userAgent,
+      expires_at: new Date(Date.now() + Number(config.JWTRefreshExpiredIn))
     }).returning('*');
 };
 
 export const findSessionById = async (id: string): Promise<Session | undefined> => {
   return await Session
     .query()
-    .select("id", "user_id", "ip_address", "user_agent", "login_at", "last_active_at", "expires_at")
+    .select("id", "user_id", "expires_at")
     .where("id", id)
     .first();
 };
 
-export const updateLastActive = async (id: string, lastActiveAt: Date): Promise<Session> => {
-  const updatedSessions = await Session
+export const findSessionByUserId = async (userId: string): Promise<Session | undefined> => {
+  return await Session
     .query()
-    .where("id", id)
-    .update({
-      lastActiveAt
-    }).returning("*");
-
-  return updatedSessions[0];
+    .select("id", "user_id", "ip_address", "user_agent", "login_at", "last_active_at", "expires_at")
+    .where("user_id", userId)
+    .first();
 };
 
-export const endSession = async (id: string): Promise<Session> => {
-  const endSessions = await Session
+export const updateLastActive = async (id: string): Promise<Session> => {
+  const session = await Session
     .query()
     .where("id", id)
     .update({
-      lastActiveAt: new Date(),
-      expiresAt: new Date()
+      last_active_at: new Date()
     }).returning("*");
 
-  return endSessions[0];
+  return session[0];
+};
+
+export const updateExpires = async (userId: string): Promise<Session> => {
+  const session = await Session
+    .query()
+    .where("user_id", userId)
+    .update({
+      expires_at: new Date()
+    }).returning("*");
+
+  return session[0];
 };

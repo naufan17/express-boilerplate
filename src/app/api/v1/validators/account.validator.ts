@@ -5,11 +5,11 @@ export const updateProfileValidator = () => {
     body("name")
       .optional()
       .isString()
-      .withMessage("Name is required"),
+      .withMessage("name is required"),
     body("email")
       .optional()
       .isEmail()
-      .withMessage("Invalid email"),
+      .withMessage("invalid email"),
   ]
 }
 
@@ -18,14 +18,14 @@ export const updatePasswordValidator = () => {
     body("password")
       .isString()
       .notEmpty()
-      .withMessage("Password is required")
+      .withMessage("password is required")
       .isLength({ min: 10 })
-      .withMessage("Password must be at least 10 characters long"),
+      .withMessage("password must be at least 10 characters long"),
     body("confirmPassword")
       .isString()
       .notEmpty()
-      .withMessage("Confirm password is required")
+      .withMessage("confirm password is required")
       .custom((value, { req }) => value === req.body.password)
-      .withMessage("Password confirmation does not match password")
+      .withMessage("password confirmation does not match password")
   ]
 }

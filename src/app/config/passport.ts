@@ -37,7 +37,7 @@ passport.use(
     payload: { sub: string }, 
     done: (error: unknown, user?: { id: string } | false, info?: { message: string }) => void
   ): Promise<void> => {
-    if (!payload.sub) return done(null, false, { message: 'Access token is invalid' });
+    if (!payload.sub) return done(null, false, { message: 'access token is invalid' });
     
     return done(null, { id: payload.sub });
   })
@@ -49,10 +49,10 @@ passport.use(
     signed: true,
   }, async (
     token: string,
-    done: (error: unknown, user?: { id: string } | false, info?: { message: string }) => void
+    done: (error: unknown, session?: { id: string } | false, info?: { message: string }) => void
   ): Promise<void> => {
     const payload: { sub: string } = verifyTJWTRefresh(token);
-    if (!payload.sub) return done(null, false, { message: 'Refresh token is invalid' });
+    if (!payload.sub) return done(null, false, { message: 'refresh token is invalid' });
 
     return done(null, { id: payload.sub });
   })

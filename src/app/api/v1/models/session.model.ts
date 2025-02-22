@@ -2,15 +2,13 @@ import { Model } from 'objection';
 
 class Session extends Model {
   id!: string;
-  userId!: string;
-  ipAddress!: string;
-  userAgent!: string;
-  loginAt!: Date;
-  lastActiveAt!: Date;
-  expiresAt!: Date;
-  createdAt!: Date;
-  updatedAt!: Date;
-  
+  user_id!: string;
+  ip_address!: string;
+  user_agent!: string;
+  login_at!: Date;
+  last_active_at!: Date;
+  expires_at!: Date;
+
   static get tableName() {
     return 'sessions';
   }

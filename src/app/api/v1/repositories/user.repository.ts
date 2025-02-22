@@ -2,12 +2,10 @@ import User from "../models/user.model";
 import { v4 as uuidv4 } from "uuid";
 
 export const createUser = async (name: string, email: string, password: string): Promise<User> => {
-  const id: string = uuidv4();
-
   return await User
     .query()
     .insert({
-      id,
+      id: uuidv4(),
       name,
       email,
       password,
@@ -31,7 +29,7 @@ export const findUserById = async (id: string): Promise<User | undefined> => {
 };
 
 export const updateProfile = async (id: string, name: string, email: string): Promise<User> => {
-  const updatedUsers = await User
+  const user = await User
     .query()
     .where("id", id)
     .update({
@@ -40,11 +38,11 @@ export const updateProfile = async (id: string, name: string, email: string): Pr
     })
     .returning("*");
 
-  return updatedUsers[0];
+  return user[0];
 };
 
 export const updatePassword = async (id: string, password: string): Promise<User> => {
-  const updatedUsers = await User
+  const user = await User
     .query()
     .where("id", id)
     .update({
@@ -52,5 +50,5 @@ export const updatePassword = async (id: string, password: string): Promise<User
     })
     .returning("*");
     
-  return updatedUsers[0];
+  return user[0];
 };

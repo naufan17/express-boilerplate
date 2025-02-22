@@ -10,7 +10,7 @@ export const profileUser = async (id: string): Promise<User | null> => {
     return user;  
   } catch (error) {
     console.log(error);
-    throw new Error("Error getting user profile");
+    throw new Error("error getting user profile");
   }
 };
 
@@ -22,7 +22,7 @@ export const updateProfileUser = async (id: string, name: string, email: string)
     return user;
   } catch (error) {
     console.log(error);
-    throw new Error("Error updating user profile");
+    throw new Error("error updating user profile");
   }
 }
 
@@ -35,6 +35,6 @@ export const updatePasswordUser = async (id: string, password: string): Promise<
     return user;
   } catch (error) {
     console.log(error);
-    throw new Error("Error updating user password");
+    throw new Error("error updating user password");
   }
 }

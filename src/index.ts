@@ -8,7 +8,7 @@ const host: string = config.Host;
 
 knexInstance.raw('SELECT 1 + 1 AS result')
   .then(() => {
-    console.log('[server] Database connection successful');
+    console.log('[server] Database connection successfull');
   })
   .catch((error) => {
     console.error('[server] Database connection failed:', error);
