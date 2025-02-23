@@ -56,6 +56,16 @@ export const refreshAccessToken = async (sessionId: string): Promise<AccessToken
   }
 }
 
+export const logoutUser = async (userId: string): Promise<boolean> => {
+  try {
+    await updateExpires(userId);
+    return true;
+  } catch (error) {
+    console.log(error);
+    throw new Error("error logging out user");
+  }
+}
+
 export const authenticateUser = async (email: string, password: string): Promise<User | null> => {
   try {
     const user: User | undefined = await findUserByEmail(email);

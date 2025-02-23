@@ -3,7 +3,7 @@ import passport from 'passport';
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../../../helper/responseBody';
-import { registerUser, loginUser, refreshAccessToken } from '../services/auth.service';
+import { registerUser, loginUser, refreshAccessToken, logoutUser } from '../services/auth.service';
 import { AccessToken, RefreshToken } from '../../../type/token';
 import { setCookie } from '../../../helper/setCookie';
 import User from '../models/user.model';
@@ -66,5 +66,19 @@ export const refresh = async (req: Request | any, res: Response): Promise<void> 
   } catch (error) {
     console.log(error);
     return responseInternalServerError(res, 'error refreshing access token');
+  }    
+};
+
+export const logout = async (req: Request | any, res: Response): Promise<void> => {
+  const { user }: { user: { id: string } } = req;
+
+  try {
+    await logoutUser(user.id);
+
+    res.clearCookie('refreshToken');
+    return responseOk(res, 'user logged out');
+  } catch (error) {
+    console.log(error);
+    return responseInternalServerError(res, 'error logging out user');
   }    
 };
