@@ -128,6 +128,8 @@ To view the API documentation, open the following link:
 ``POST /api/v1/auth/login`` - Login to existing account
 <br/>
 ``GET /api/v1/auth/refresh`` - Refresh access token
+<br/>
+``GET /api/v1/auth/logout`` - Logout
 
 **Account routes**:
 <br/>
