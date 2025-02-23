@@ -87,3 +87,37 @@ describe('POST /api/v1/auth/login', () => {
     expect(response.status).toBe(401);
   });
 });
+
+describe('GET /api/v1/auth/refresh', () => {
+  it('should return 200 OK', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth/refresh')
+      .set('Cookie', ['refreshToken=secret']);
+
+    expect(response.status).toBe(200);
+  });
+
+  it('should return 401 Unauthorized', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth/refresh');
+
+    expect(response.status).toBe(401);
+  });
+});
+
+describe('GET /api/v1/auth/logout', () => {
+  it('should return 200 OK', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth/logout')
+      .set('Cookie', ['refreshToken=secret']);
+
+    expect(response.status).toBe(200);
+  });
+
+  it('should return 401 Unauthorized', async () => {
+    const response = await request(app)
+      .get('/api/v1/auth/logout');
+
+    expect(response.status).toBe(401);
+  });
+});
