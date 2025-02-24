@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import express, { Express } from "express";
+import express, { Express, Request, Response } from "express";
+import { responseInternalServerError, responseNotFound } from "./helper/responseBody";
 import morgan from "morgan";
 import helmet from "helmet";
 import compress from "compression";
@@ -36,5 +37,14 @@ app.use(
 
 app.use("/api/v1", apiV1);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
+
+app.use((req: Request, res: Response) => {
+  return responseNotFound(res, 'route not found');
+});
+
+app.use((err: any, req: Request, res: Response) => {
+  console.error(err.stack);
+  return responseInternalServerError(res, 'something went wrong');
+});
 
 export default app;
