@@ -13,7 +13,7 @@ export const generateJWTAccess = (payload: JwtPayload): {
     expiresIn: expiredToken, 
     algorithm: 'HS256' 
   };
-  const token = jwt.sign(payload, secretToken, options);
+  const token: string = jwt.sign(payload, secretToken, options);
 
   return {
     accessToken: token,
@@ -33,7 +33,7 @@ export const generateJWTRefresh = (payload: JwtPayload): {
     expiresIn: expiredToken, 
     algorithm: 'HS256' 
   };
-  const token = jwt.sign(payload, secretToken, options);
+  const token: string = jwt.sign(payload, secretToken, options);
 
   return {
     refreshToken: token,

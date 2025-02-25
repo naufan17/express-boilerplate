@@ -310,26 +310,27 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: string
+                    type: number
                   message:
                     type: string
                   data:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                      ipAddress:
-                        type: string
-                      userAgent:
-                        type: string
-                      status:
-                        type: string
-                      loginAt:
-                        type: string
-                      lastActiveAt:
-                        type: string
-                      expiresAt:
-                        type: string
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: string
+                        ipAddress:
+                          type: string
+                        userAgent:
+                          type: string
+                        status:
+                          type: string
+                        loginAt:
+                          type: string
+                        lastActiveAt:
+                          type: string
+                        expiresAt:
+                          type: string
         '401':
           description: Invalid access token
           content:
@@ -338,7 +339,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: string
+                    type: number
                   message:
                     type: string
         '500':
@@ -349,7 +350,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: string
+                    type: number
                   message:
                     type: string
   /api/v1/account/update-profile:
@@ -380,7 +381,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: string
+                    type: number
                   message:
                     type: string
         '400':
@@ -391,7 +392,7 @@ paths:
                 type: object
                 properties:
                   statusCode:
-                    type: string
+                    type: number
                   message:
                     type: string
         '401':
