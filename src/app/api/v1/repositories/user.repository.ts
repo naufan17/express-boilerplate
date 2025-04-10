@@ -24,18 +24,20 @@ export const findUserByEmail = async (email: string): Promise<User | undefined> 
 export const findUserById = async (id: string): Promise<User | undefined> => {
   return await User
     .query()
-    .select("id", "name", "email")
+    .select("id", "name", "email", "phone_number", "address", "profile_picture", "is_verified")
     .findById(id)
     .first();
 };
 
-export const updateProfile = async (id: string, name: string, email: string): Promise<User | undefined> => {
+export const updateProfile = async (id: string, name: string | undefined, email: string | undefined, phoneNumber: string | undefined, address: string | undefined): Promise<User | undefined> => {
   return User
     .query()
     .findById(id)
     .update({
       name,
       email,
+      phone_number: phoneNumber,
+      address,
     })
     .returning("*")
     .first();

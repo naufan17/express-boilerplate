@@ -36,13 +36,13 @@ export const session = async (req: Request | any, res: Response): Promise<void> 
 
 export const updateProfile = async (req: Request | any, res: Response): Promise<void> => {
   const { user }: { user: { id: string } } = req;
-  const { name, email } = req.body;
+  const { name, email, phoneNumber, address } = req.body;
 
   const errors = validationResult(req);
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   try {
-    const userProfileData: User | null =  await updateProfileUser(user.id, name, email);
+    const userProfileData: User | null =  await updateProfileUser(user.id, name, email, phoneNumber, address);
     if(userProfileData === null) return responseNotFound(res, 'user not found');
 
     return responseOk(res, 'user profile updated');

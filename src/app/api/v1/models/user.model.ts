@@ -5,6 +5,10 @@ class User extends Model {
   name!: string;
   email!: string;
   password!: string;
+  phone_number?: string;
+  address?: string;
+  profile_picture?: string;
+  is_verified!: boolean;
   created_at!: Date;
   updated_at!: Date;
 

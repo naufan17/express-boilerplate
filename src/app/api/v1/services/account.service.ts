@@ -39,9 +39,9 @@ export const sessionUser = async (id: string): Promise<formattedSession[] | null
     throw new Error("error getting user session");
   }
 }
-export const updateProfileUser = async (id: string, name: string, email: string): Promise<User | null> => {
+export const updateProfileUser = async (id: string, name: string | undefined, email: string | undefined, phoneNumber: string | undefined, address: string | undefined): Promise<User | null> => {
   try {
-    const user: User | undefined = await updateProfile(id, name, email);
+    const user: User | undefined = await updateProfile(id, name, email, phoneNumber, address);
     if (!user) return null;
 
     return user;

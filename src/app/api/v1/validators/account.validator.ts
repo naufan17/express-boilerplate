@@ -5,11 +5,21 @@ export const updateProfileValidator = () => {
     body("name")
       .optional()
       .isString()
-      .withMessage("name is required"),
+      .withMessage("invalid name"),
     body("email")
       .optional()
       .isEmail()
       .withMessage("invalid email"),
+    body("phoneNumber")
+      .optional()
+      .isString()
+      .withMessage("invalid phone")
+      .matches(/^08\d{8,12}$/)
+      .withMessage("phone number must start with 08 and be a valid format"),
+    body("address")
+      .optional()
+      .isString()
+      .withMessage("invalid address"),
   ]
 }
 

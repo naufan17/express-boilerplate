@@ -42,12 +42,16 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
       const { accessToken, refreshToken } : { accessToken: AccessToken, refreshToken: RefreshToken } = tokens;
 
-      setCookie(res, 'refreshToken', refreshToken.refreshToken, {
+      setCookie(res, 'refresh_token', refreshToken.refreshToken, {
         maxAge: Number(config.JWTRefreshExpiredIn),
         expires: new Date(Date.now() + Number(config.JWTRefreshExpiredIn))
       });
 
-      return responseOk(res, 'login successful', accessToken);
+      return responseOk(res, 'login successful', {
+        access_token: accessToken.accessToken,
+        expires_in: accessToken.expiresIn,
+        token_type: accessToken.tokenType
+      });
     } catch (error) {
       console.log(error);
       return responseInternalServerError(res, 'error logging in user');
@@ -62,7 +66,11 @@ export const refresh = async (req: Request | any, res: Response): Promise<void> 
     const accessToken: AccessToken | null = await refreshAccessToken(session.id);
     if (accessToken === null) return responseInternalServerError(res, 'error refreshing access token');
 
-    return responseOk(res, 'access token refreshed', accessToken);
+    return responseOk(res, 'access token refreshed', {
+      access_token: accessToken.accessToken,
+      expires_in: accessToken.expiresIn,
+      token_type: accessToken.tokenType
+    });
   } catch (error) {
     console.log(error);
     return responseInternalServerError(res, 'error refreshing access token');
