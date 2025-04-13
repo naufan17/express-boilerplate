@@ -4,13 +4,24 @@ import Session from "../models/session.model";
 import { findUserById, updateProfile, updatePassword } from "../repositories/user.repository";
 import { findSessionByUserId } from "../repositories/session.repository";
 import { formattedSession } from "../../../type/session";
+import { formattedUser } from "../../../type/user";
 
-export const profileUser = async (id: string): Promise<User | null> => {
+export const profileUser = async (id: string): Promise<formattedUser | null> => {
   try {
     const user: User | undefined = await findUserById(id);
     if (!user) return null;
 
-    return user;  
+    const formattedUser: formattedUser = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phoneNumber: user.phone_number,
+      address: user.address,
+      profilePicture: user.profile_picture,
+      isVerified: user.is_verified,
+    };
+
+    return formattedUser;  
   } catch (error) {
     console.log(error);
     throw new Error("error getting user profile");
@@ -39,6 +50,7 @@ export const sessionUser = async (id: string): Promise<formattedSession[] | null
     throw new Error("error getting user session");
   }
 }
+
 export const updateProfileUser = async (id: string, name: string | undefined, email: string | undefined, phoneNumber: string | undefined, address: string | undefined): Promise<User | null> => {
   try {
     const user: User | undefined = await updateProfile(id, name, email, phoneNumber, address);

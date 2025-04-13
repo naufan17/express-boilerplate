@@ -18,7 +18,7 @@ passport.use(
   ): Promise<void> => {
     try {
       const user: User | null = await authenticateUser(email, password);
-      if (user === null) return done(null, false, { message: 'Invalid email or password' });
+      if (user === null) return done(null, false, { message: 'invalid email or password' });
 
       return done(null, user);
     } catch (error) {

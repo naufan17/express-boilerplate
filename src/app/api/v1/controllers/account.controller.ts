@@ -5,12 +5,13 @@ import { responseInternalServerError, responseNotFound, responseOk, responseBadR
 import { profileUser, updateProfileUser, updatePasswordUser, sessionUser } from '../services/account.service';
 import User from '../models/user.model';
 import { formattedSession } from '../../../type/session';
+import { formattedUser } from '../../../type/user';
 
 export const profile = async (req: Request | any, res: Response): Promise<void> => {
   const { user }: { user: { id: string } } = req;
 
   try {
-    const userProfile: User | null = await profileUser(user.id);
+    const userProfile: formattedUser | null = await profileUser(user.id);
     if(userProfile === null) return responseNotFound(res, 'user not found');
 
     return responseOk(res, 'user profile found', userProfile);
