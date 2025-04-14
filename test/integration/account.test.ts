@@ -1,13 +1,18 @@
 import request from 'supertest';
 import app from '../../src/app/app';
 
+const name: string = 'David Doe';
+const email: string = 'david@example.com';
+const password: string = 'PasswordPassword1234';
+const confirmPassword: string = 'PasswordPassword1234';
+
 describe('GET /api/v1/account/profile', () => {
   it('should return 200 OK', async () => {
     const loginResponse = await request(app)
       .post('/api/v1/auth/login')
       .send({ 
-        email: 'david@example.com', 
-        password: 'PasswordPassword12' 
+        email, 
+        password 
       });
 
     const accessToken: string = loginResponse.body.data.accessToken;
@@ -41,8 +46,8 @@ describe('GET /api/v1/account/session', () => {
     const loginResponse = await request(app)
       .post('/api/v1/auth/login')
       .send({
-        email: 'david@example.com',
-        password: 'PasswordPassword12',
+        email,
+        password,
       });
 
     const accessToken: string = loginResponse.body.data.accessToken;
@@ -76,8 +81,8 @@ describe('POST /api/v1/account/update-profile', () => {
     const loginResponse = await request(app)
       .post('/api/v1/auth/login')
       .send({ 
-        email: 'david@example.com', 
-        password: 'PasswordPassword12' 
+        email, 
+        password 
       });
 
     const accessToken: string = loginResponse.body.data.accessToken;
@@ -86,8 +91,8 @@ describe('POST /api/v1/account/update-profile', () => {
       .post('/api/v1/account/update-profile')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        name: 'David Doe',
-        email: 'david@example.com',
+        name,
+        email,
       });
 
     expect(response.status).toBe(200);
@@ -97,8 +102,8 @@ describe('POST /api/v1/account/update-profile', () => {
     const loginResponse = await request(app)
       .post('/api/v1/auth/login')
       .send({ 
-        email: 'david@example.com', 
-        password: 'PasswordPassword12' 
+        email, 
+        password 
       });
 
     const accessToken: string = loginResponse.body.data.accessToken;
@@ -116,8 +121,8 @@ describe('POST /api/v1/account/update-profile', () => {
       .post('/api/v1/account/update-profile')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        name: 'David Doe',
-        email: 'david@example.com',
+        name,
+        email,
       });
 
     expect(response.status).toBe(401);
@@ -129,8 +134,8 @@ describe('POST /api/v1/account/update-password', () => {
     const loginResponse = await request(app)
       .post('/api/v1/auth/login')
       .send({ 
-        email: 'david@example.com', 
-        password: 'PasswordPassword12' 
+        email, 
+        password 
       });
 
     const accessToken: string = loginResponse.body.data.accessToken;
@@ -139,8 +144,8 @@ describe('POST /api/v1/account/update-password', () => {
       .post('/api/v1/account/update-password')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        password: 'PasswordPassword12',
-        confirmPassword: 'PasswordPassword12',
+        password,
+        confirmPassword,
       });
 
     expect(response.status).toBe(200);
@@ -150,8 +155,8 @@ describe('POST /api/v1/account/update-password', () => {
     const loginResponse = await request(app)
       .post('/api/v1/auth/login')
       .send({ 
-        email: 'david@example.com', 
-        password: 'PasswordPassword12' 
+        email, 
+        password 
       });
 
     const accessToken: string = loginResponse.body.data.accessToken;
@@ -160,7 +165,7 @@ describe('POST /api/v1/account/update-password', () => {
       .post('/api/v1/account/update-password')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        password: 'PasswordPassword12',
+        password,
         confirmPassword: 'PasswordPassword',
       });
 
@@ -173,8 +178,8 @@ describe('POST /api/v1/account/update-password', () => {
       .post('/api/v1/account/update-password')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        password: 'PasswordPassword12',
-        confirmPassword: 'PasswordPassword12',
+        password,
+        confirmPassword,
       });
 
     expect(response.status).toBe(401);

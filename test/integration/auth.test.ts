@@ -1,15 +1,20 @@
 import request from 'supertest';
 import app from '../../src/app/app';
 
+const name: string = 'David Doe';
+const email: string = 'david@example.com';
+const password: string = 'PasswordPassword1234';
+const confirmPassword: string = 'PasswordPassword1234';
+
 describe('POST /api/v1/auth/register', () => {
   it('should return 201 Created', async () => {
     const response = await request(app)
       .post('/api/v1/auth/register')
       .send({
-        name: 'David Doe',
-        email: 'david@example.com',
-        password: 'PasswordPassword12',
-        confirmPassword: 'PasswordPassword12',
+        name,
+        email,
+        password,
+        confirmPassword,
       });
 
     expect(response.status).toBe(201);
@@ -19,9 +24,9 @@ describe('POST /api/v1/auth/register', () => {
     const response = await request(app)
       .post('/api/v1/auth/register')
       .send({
-        email: 'david@example.com',
-        password: 'PasswordPassword12',
-        confirmPassword: 'PasswordPassword12',
+        email,
+        password,
+        confirmPassword,
       });
 
     expect(response.status).toBe(400);
@@ -31,8 +36,8 @@ describe('POST /api/v1/auth/register', () => {
     const response = await request(app)
       .post('/api/v1/auth/register')
       .send({
-        name: 'David Doe',
-        email: 'david@example.com',
+        name,
+        email,
         password: 'Password',
         confirmPassword: 'Password',
       });
@@ -44,10 +49,10 @@ describe('POST /api/v1/auth/register', () => {
     const response = await request(app)
       .post('/api/v1/auth/register')
       .send({
-        name: 'David Doe',
-        email: 'david@example.com',
-        password: 'PasswordPassword12',
-        confirmPassword: 'PasswordPassword12',
+        name,
+        email,
+        password,
+        confirmPassword,
       });
 
     expect(response.status).toBe(409);
@@ -59,8 +64,8 @@ describe('POST /api/v1/auth/login', () => {
     const response = await request(app)
       .post('/api/v1/auth/login')
       .send({
-        email: 'david@example.com',
-        password: 'PasswordPassword12',
+        email,
+        password,
       });
 
     expect(response.status).toBe(200);
@@ -70,7 +75,7 @@ describe('POST /api/v1/auth/login', () => {
     const response = await request(app)
       .post('/api/v1/auth/login')
       .send({
-        email: 'david@example.com',
+        email,
       });
 
     expect(response.status).toBe(400);
@@ -80,7 +85,7 @@ describe('POST /api/v1/auth/login', () => {
     const response = await request(app)
       .post('/api/v1/auth/login')
       .send({
-        email: 'david@example.com',
+        email,
         password: 'PasswordPassword',
       });
 

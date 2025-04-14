@@ -47,7 +47,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         expires: new Date(Date.now() + Number(config.JWTRefreshExpiredIn))
       });
 
-      return responseOk(res, 'login successful', accessToken);
+      return responseOk(res, 'login successfull', accessToken);
     } catch (error) {
       console.log(error);
       return responseInternalServerError(res, 'error logging in user');
