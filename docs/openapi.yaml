@@ -273,6 +273,14 @@ paths:
                         type: string
                       email:
                         type: string
+                      phoneNumber:
+                        type: string
+                      address:
+                        type: string
+                      profilePicture:
+                        type: string
+                      isVerified:
+                        type: boolean
         '401':
           description: Invalid access token
           content:
@@ -372,6 +380,12 @@ paths:
                 email:
                   type: string
                   example: jhon@example.com
+                phoneNumber:
+                  type: string
+                  example: 081234567890
+                address:
+                  type: string
+                  example: 123 Main St, City, Country
       responses:
         '200':
           description: Profile updated successfully
