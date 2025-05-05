@@ -12,12 +12,12 @@ export const profile = async (req: Request | any, res: Response): Promise<void> 
 
   try {
     const userProfile: formattedUser | null = await profileUser(user.id);
-    if(userProfile === null) return responseNotFound(res, 'user not found');
+    if(userProfile === null) return responseNotFound(res, 'User not found');
 
-    return responseOk(res, 'user profile found', userProfile);
+    return responseOk(res, 'User profile found', userProfile);
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'error getting user profile');
+    return responseInternalServerError(res, 'Error getting user profile');
   }
 }
 
@@ -26,12 +26,12 @@ export const session = async (req: Request | any, res: Response): Promise<void> 
 
   try {
     const userSession: formattedSession[] | null = await sessionUser(user.id);
-    if(userSession === null) return responseNotFound(res, 'user session not found');
+    if(userSession === null) return responseNotFound(res, 'User session not found');
 
-    return responseOk(res, 'user session found', userSession);
+    return responseOk(res, 'User session found', userSession);
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'error getting user session');
+    return responseInternalServerError(res, 'Error getting user session');
   }
 }
 
@@ -44,12 +44,12 @@ export const updateProfile = async (req: Request | any, res: Response): Promise<
 
   try {
     const userProfileData: User | null =  await updateProfileUser(user.id, name, email, phoneNumber, address);
-    if(userProfileData === null) return responseNotFound(res, 'user not found');
+    if(userProfileData === null) return responseNotFound(res, 'User not found');
 
-    return responseOk(res, 'user profile updated');
+    return responseOk(res, 'User profile updated');
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'error updating user profile');
+    return responseInternalServerError(res, 'Error updating user profile');
   }
 }
 
@@ -62,11 +62,11 @@ export const updatePassword = async (req: Request | any, res: Response): Promise
 
   try {
     const userProfileData: User | null = await updatePasswordUser(user.id, password);
-    if(userProfileData === null) return responseNotFound(res, 'user not found');
+    if(userProfileData === null) return responseNotFound(res, 'User not found');
 
-    return responseOk(res, 'user password updated');
+    return responseOk(res, 'User password updated');
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'error updating user password');
+    return responseInternalServerError(res, 'Error updating user password');
   }
 }

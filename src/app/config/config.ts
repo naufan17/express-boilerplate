@@ -23,7 +23,7 @@ const config: Config = {
   CookieSecretKey: process.env.COOKIE_SECRET_KEY || 'secret',
   CorsOrigin: process.env.CORS_ORIGIN || '*',
   RateLimitMax: process.env.RATE_LIMIT_MAX || '100',
-  RateLimitWindowMs: process.env.RATE_LIMIT_WINDOW_MS || '60000', // 1 minutes
+  RateLimitWindowMs: process.env.RATE_LIMIT_WINDOW_MS || '3600000', // 1 hour
 };
 
 export default config;

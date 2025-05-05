@@ -18,7 +18,7 @@ passport.use(
   ): Promise<void> => {
     try {
       const user: User | null = await authenticateUser(email, password);
-      if (user === null) return done(null, false, { message: 'invalid email or password' });
+      if (user === null) return done(null, false, { message: 'Invalid email or password' });
 
       return done(null, user);
     } catch (error) {
@@ -37,7 +37,7 @@ passport.use(
     payload: { sub: string }, 
     done: (error: unknown, user?: { id: string } | false, info?: { message: string }) => void
   ): Promise<void> => {
-    if (!payload.sub) return done(null, false, { message: 'access token is invalid' });
+    if (!payload.sub) return done(null, false, { message: 'Access token is invalid' });
     
     return done(null, { id: payload.sub });
   })
@@ -52,7 +52,7 @@ passport.use(
     done: (error: unknown, session?: { id: string } | false, info?: { message: string }) => void
   ): Promise<void> => {
     const payload: { sub: string } = verifyTJWTRefresh(token);
-    if (!payload.sub) return done(null, false, { message: 'refresh token is invalid' });
+    if (!payload.sub) return done(null, false, { message: 'Refresh token is invalid' });
 
     return done(null, { id: payload.sub });
   })

@@ -17,12 +17,12 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
   try {
     const user: User | null = await registerUser(name, email, password);
-    if (user === null) return responseConflict(res, 'user already exists');
+    if (user === null) return responseConflict(res, 'User already exists');
 
-    return responseCreated(res, 'user created successfully');
+    return responseCreated(res, 'User created successfully');
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'error creating user');
+    return responseInternalServerError(res, 'Error creating user');
   }
 };
 
@@ -34,11 +34,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
 
   passport.authenticate('local', { session: false }, async (err: Error, user: User, info?: { message: string }) => {
-    if(err || !user) return responseUnauthorized(res, info?.message || 'invalid email or password');
+    if(err || !user) return responseUnauthorized(res, info?.message || 'Invalid email or password');
 
     try {
       const tokens = await loginUser(user.id, ipAddress, userAgent);
-      if (!tokens || !tokens.accessToken || !tokens.refreshToken) return responseInternalServerError(res, 'error logging in user');
+      if (!tokens || !tokens.accessToken || !tokens.refreshToken) return responseInternalServerError(res, 'Error logging in user');
 
       const { accessToken, refreshToken } : { accessToken: AccessToken, refreshToken: RefreshToken } = tokens;
 
@@ -47,10 +47,10 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         expires: new Date(Date.now() + Number(config.JWTRefreshExpiredIn))
       });
 
-      return responseOk(res, 'login successfull', accessToken);
+      return responseOk(res, 'Login successfull', accessToken);
     } catch (error) {
       console.log(error);
-      return responseInternalServerError(res, 'error logging in user');
+      return responseInternalServerError(res, 'Error logging in user');
     }    
   })(req, res);
 };
@@ -60,12 +60,12 @@ export const refresh = async (req: Request | any, res: Response): Promise<void> 
 
   try {
     const accessToken: AccessToken | null = await refreshAccessToken(session.id);
-    if (accessToken === null) return responseInternalServerError(res, 'error refreshing access token');
+    if (accessToken === null) return responseInternalServerError(res, 'Error refreshing access token');
 
-    return responseOk(res, 'access token refreshed', accessToken);
+    return responseOk(res, 'Access token refreshed', accessToken);
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'error refreshing access token');
+    return responseInternalServerError(res, 'Error refreshing access token');
   }    
 };
 
@@ -76,9 +76,9 @@ export const logout = async (req: Request | any, res: Response): Promise<void> =
     await logoutUser(user.id);
 
     res.clearCookie('refreshToken');
-    return responseOk(res, 'user logged out');
+    return responseOk(res, 'User logged out');
   } catch (error) {
     console.log(error);
-    return responseInternalServerError(res, 'error logging out user');
+    return responseInternalServerError(res, 'Error logging out user');
   }    
 };

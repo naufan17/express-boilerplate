@@ -5,21 +5,21 @@ export const updateProfileValidator = () => {
     body("name")
       .optional()
       .isString()
-      .withMessage("invalid name"),
+      .withMessage("Invalid name"),
     body("email")
       .optional()
       .isEmail()
-      .withMessage("invalid email"),
+      .withMessage("Invalid email"),
     body("phoneNumber")
       .optional()
       .isString()
-      .withMessage("invalid phone")
+      .withMessage("Invalid phone")
       .matches(/^08\d{8,12}$/)
-      .withMessage("phone number must start with 08 and be a valid format"),
+      .withMessage("Phone number must start with 08 and be a valid format"),
     body("address")
       .optional()
       .isString()
-      .withMessage("invalid address"),
+      .withMessage("Invalid address"),
   ]
 }
 
@@ -28,14 +28,14 @@ export const updatePasswordValidator = () => {
     body("password")
       .isString()
       .notEmpty()
-      .withMessage("password is required")
+      .withMessage("Password is required")
       .isLength({ min: 10 })
-      .withMessage("password must be at least 10 characters long"),
+      .withMessage("Password must be at least 10 characters long"),
     body("confirmPassword")
       .isString()
       .notEmpty()
-      .withMessage("confirm password is required")
+      .withMessage("Confirm password is required")
       .custom((value, { req }) => value === req.body.password)
-      .withMessage("password confirmation does not match password")
+      .withMessage("Password confirmation does not match password")
   ]
 }

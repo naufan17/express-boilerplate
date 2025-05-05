@@ -5,24 +5,24 @@ export const registerValidator = () => {
     body("name")
       .notEmpty()
       .isString()
-      .withMessage("name is required"), 
+      .withMessage("Name is required"), 
     body("email")
       .notEmpty()
-      .withMessage("email is required")
+      .withMessage("Email is required")
       .isEmail()
-      .withMessage("invalid email"),
+      .withMessage("Invalid email"),
     body("password")
       .isString()
       .notEmpty()
-      .withMessage("password is required")
+      .withMessage("Password is required")
       .isLength({ min: 10 })
-      .withMessage("password must be at least 10 characters long"),
+      .withMessage("Password must be at least 10 characters long"),
     body("confirmPassword")
       .isString()
       .notEmpty()
-      .withMessage("confirm password is required")
+      .withMessage("Confirm password is required")
       .custom((value, { req }) => value === req.body.password)
-      .withMessage("password confirmation does not match password")
+      .withMessage("Password confirmation does not match password")
   ]
 }
 
@@ -30,14 +30,14 @@ export const loginValidator = () => {
   return [
     body("email")
       .notEmpty()
-      .withMessage("email is required")
+      .withMessage("Email is required")
       .isEmail()
-      .withMessage("invalid email"),
+      .withMessage("Invalid email"),
     body("password")
       .isString()
       .notEmpty()
-      .withMessage("password is required")
+      .withMessage("Password is required")
       .isLength({ min: 10 })
-      .withMessage("password must be at least 10 characters long")
+      .withMessage("Password must be at least 10 characters long")
   ]
 }

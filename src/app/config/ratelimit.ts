@@ -4,7 +4,7 @@ import config from "./config";
 const limiter: RateLimitRequestHandler = rateLimit({
   windowMs: Number(config.RateLimitWindowMs),   
   max: Number(config.RateLimitMax),
-  message: "too many requests, please try again",
+  message: "Too many requests, please try again",
   headers: true
 });
 
