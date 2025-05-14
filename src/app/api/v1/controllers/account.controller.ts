@@ -1,25 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../../../helper/responseBody';
 import User from '../models/user.model';
+import Session from '../models/session.model';
+import logger from '../../../config/logger';
+import { responseInternalServerError, responseNotFound, responseOk, responseBadRequest } from '../../../helper/responseBody';
+import { userRepository } from '../repositories/user.repository';
+import { sessionRepository } from '../repositories/session.repository';
 import { formattedSession } from '../../../type/session';
 import { formattedUser } from '../../../type/user';
-import { AccountService } from '../services/account.service';
 
-const accountService = AccountService();
-
-export const AccountController = () => {
+export const accountController = () => {
   const profileUser = async (req: Request | any, res: Response): Promise<void> => {
     const { user }: { user: { id: string } } = req;
   
     try {
-      const userProfile: formattedUser | null = await accountService.profileUser(user.id);
-      if(userProfile === null) return responseNotFound(res, 'User not found');
+      const foundUser: User | undefined = await userRepository().findById(user.id);
+      if (!foundUser) return responseNotFound(res, 'User not found');
   
-      return responseOk(res, 'User profile found', userProfile);
+      const formattedUser: formattedUser = {
+        id: foundUser.id,
+        name: foundUser.name,
+        email: foundUser.email,
+        phoneNumber: foundUser.phone_number,
+        address: foundUser.address,
+        profilePicture: foundUser.profile_picture,
+        isVerified: foundUser.is_verified,
+      };
+  
+      return responseOk(res, 'User profile found', formattedUser);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
+      console.error(error);
+      
       return responseInternalServerError(res, 'Error getting user profile');
     }
   }
@@ -28,12 +42,25 @@ export const AccountController = () => {
     const { user }: { user: { id: string } } = req;
   
     try {
-      const userSession: formattedSession[] | null = await accountService.sessionUser(user.id);
-      if(userSession === null) return responseNotFound(res, 'User session not found');
+      const sessions: Session[] | undefined = await sessionRepository().findByUserId(user.id);
+      if (!sessions) return responseNotFound(res, 'User session not found');
   
-      return responseOk(res, 'User session found', userSession);
+      const formattedSession: formattedSession[] = sessions.map(session => ({
+        id: session.id,
+        userId: session.user_id,
+        ipAddress: session.ip_address,
+        userAgent: session.user_agent,
+        status: session.expires_at > new Date() ? "active" : "expired",
+        loginAt: session.login_at,
+        lastActiveAt: session.last_active_at,
+        expiresAt: session.expires_at,
+      }));  
+      
+      return responseOk(res, 'User session found', formattedSession);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
+      console.error(error);
+
       return responseInternalServerError(res, 'Error getting user session');
     }
   }
@@ -46,12 +73,14 @@ export const AccountController = () => {
     if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
   
     try {
-      const userProfileData: User | null =  await accountService.updateProfile(user.id, name, email, phoneNumber, address);
-      if(userProfileData === null) return responseNotFound(res, 'User not found');
+      const updatedUser: User | undefined = await userRepository().updateProfile(user.id, name, email, phoneNumber, address);
+      if (!updatedUser) return responseNotFound(res, 'User not found');
   
       return responseOk(res, 'User profile updated');
     } catch (error) {
-      console.log(error);
+      logger.error(error);
+      console.error(error);
+
       return responseInternalServerError(res, 'Error updating user profile');
     }
   }
@@ -64,12 +93,17 @@ export const AccountController = () => {
     if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
   
     try {
-      const userProfileData: User | null = await accountService.updatePassword(user.id, password);
-      if(userProfileData === null) return responseNotFound(res, 'User not found');
+      const hashedPassword: string = await bcrypt.hash(password, 10);
+      if (!hashedPassword) return responseInternalServerError(res, 'Error hashing password');
+  
+      const updatedUser: User | undefined = await userRepository().updatePassword(user.id, hashedPassword);
+      if (!updatedUser) return responseNotFound(res, 'User not found');
   
       return responseOk(res, 'User password updated');
     } catch (error) {
-      console.log(error);
+      logger.error(error);
+      console.error(error);
+
       return responseInternalServerError(res, 'Error updating user password');
     }
   }

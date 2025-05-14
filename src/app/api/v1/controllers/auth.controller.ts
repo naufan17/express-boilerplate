@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import passport from 'passport';
+import bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../../../helper/responseBody';
-import { AccessToken, RefreshToken } from '../../../type/token';
-import { setCookie } from '../../../helper/setCookie';
 import User from '../models/user.model';
+import Session from '../models/session.model';
 import config from '../../../config/config';
-import { AuthService } from '../services/auth.service';
+import logger from '../../../config/logger';
+import { responseBadRequest, responseConflict, responseCreated, responseInternalServerError, responseOk, responseUnauthorized } from '../../../helper/responseBody';
+import { userRepository } from '../repositories/user.repository';
+import { sessionRepository } from '../repositories/session.repository';
+import { generateJWTAccess, generateJWTRefresh } from '../../../util/jwt';
+import { setCookie } from '../../../helper/setCookie';
+import { AccessToken, RefreshToken } from '../../../type/token';
 
-const authService = AuthService();
-
-export const AuthController = () => {
+export const authController = () => {
   const registerUser = async (req: Request, res: Response): Promise<void> => {
     const { name, email, password } = req.body;
   
@@ -19,12 +22,20 @@ export const AuthController = () => {
     if(!errors.isEmpty()) return responseBadRequest(res, errors.array()[0].msg);
   
     try {
-      const user: User | null = await authService.registerUser(name, email, password);
-      if (user === null) return responseConflict(res, 'User already exists');
-  
+      const existingUser: User | undefined = await userRepository().findByEmail(email);
+      if (existingUser) return responseConflict(res, 'User already exists');
+
+      const hashedPassword: string = await bcrypt.hash(password, 10);
+      if (!hashedPassword) return responseInternalServerError(res, 'Error hashing password');
+
+      const createdUser: User | undefined = await userRepository().create(name, email, hashedPassword);
+      if (!createdUser) return responseInternalServerError(res, 'Error creating user');
+
       return responseCreated(res, 'User created successfully');
     } catch (error) {
-      console.log(error);
+      logger.error(error);
+      console.error(error);
+
       return responseInternalServerError(res, 'Error creating user');
     }
   };
@@ -40,10 +51,14 @@ export const AuthController = () => {
       if(err || !user) return responseUnauthorized(res, info?.message || 'Invalid email or password');
   
       try {
-        const tokens = await authService.loginUser(user.id, ipAddress, userAgent);
-        if (!tokens || !tokens.accessToken || !tokens.refreshToken) return responseInternalServerError(res, 'Error logging in user');
-  
-        const { accessToken, refreshToken } : { accessToken: AccessToken, refreshToken: RefreshToken } = tokens;
+        const updatedSession: Session[] | undefined = await sessionRepository().updateExpires(user.id);
+        if (!updatedSession) return responseInternalServerError(res, 'Error updating session');
+          
+        const newSession: Session | undefined = await sessionRepository().create(user.id, ipAddress, userAgent);
+        if (!newSession) return responseInternalServerError(res, 'Error creating session');
+    
+        const accessToken: AccessToken = generateJWTAccess({ sub: user.id });
+        const refreshToken: RefreshToken = generateJWTRefresh({ sub: newSession.id });
   
         setCookie(res, 'refreshToken', refreshToken.refreshToken, {
           maxAge: Number(config.JWTRefreshExpiredIn),
@@ -52,7 +67,9 @@ export const AuthController = () => {
   
         return responseOk(res, 'Login successfull', accessToken);
       } catch (error) {
-        console.log(error);
+        logger.error(error);
+        console.error(error);
+
         return responseInternalServerError(res, 'Error logging in user');
       }    
     })(req, res);
@@ -60,14 +77,21 @@ export const AuthController = () => {
   
   const refreshAccessToken = async (req: Request | any, res: Response): Promise<void> => {
     const { session }: { session: { id: string } } = req;
-  
+
     try {
-      const accessToken: AccessToken | null = await authService.refreshAccessToken(session.id);
-      if (accessToken === null) return responseInternalServerError(res, 'Error refreshing access token');
-  
+      const existingSession: Session | undefined = await sessionRepository().findById(session.id);
+      if (!existingSession || existingSession.expires_at < new Date()) return responseUnauthorized(res, 'Session expired');
+
+      const updatedSession: Session | undefined = await sessionRepository().updateLastActive(existingSession.id);
+      if (!updatedSession) return responseInternalServerError(res, 'Error updating session');
+
+      const accessToken: AccessToken = generateJWTAccess({ sub: existingSession.user_id });  
+
       return responseOk(res, 'Access token refreshed', accessToken);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
+      console.error(error);
+
       return responseInternalServerError(res, 'Error refreshing access token');
     }    
   };
@@ -76,12 +100,15 @@ export const AuthController = () => {
     const { user }: { user: { id: string } } = req;
   
     try {
-      await authService.logoutUser(user.id);
+      const updatedSession: Session[] | undefined = await sessionRepository().updateExpires(user.id);
+      if (!updatedSession) return responseInternalServerError(res, 'Error updating session');
   
       res.clearCookie('refreshToken');
       return responseOk(res, 'User logged out');
     } catch (error) {
-      console.log(error);
+      logger.error(error);
+      console.error(error);
+      
       return responseInternalServerError(res, 'Error logging out user');
     }    
   };

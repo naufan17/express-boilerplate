@@ -100,7 +100,6 @@ src\
         |--models\        # Database models
         |--repositories\  # Database queries
         |--routes\        # API routes
-        |--services\      # Business logic
         |--validators\    # Validation function
     |--config\            # Config files
     |--helper\            # Helper function

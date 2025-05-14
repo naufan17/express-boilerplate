@@ -3,7 +3,7 @@ import Session from "../models/session.model";
 import { v4 as uuidv4 } from "uuid";
 
 
-export const SessionRepository = () => {
+export const sessionRepository = () => {
   const create = async (userId: string, ipAddress: string, userAgent: string): Promise<Session> => {
     return await Session
       .query()

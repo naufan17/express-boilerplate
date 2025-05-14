@@ -1,13 +1,12 @@
 import passport from 'passport';
+import bcrypt from 'bcryptjs';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { Strategy as CookieStrategy } from 'passport-cookie';
-import { AuthService } from '../api/v1/services/auth.service';
+import { userRepository } from '../api/v1/repositories/user.repository';
 import { verifyTJWTRefresh } from '../util/jwt';
 import User from '../api/v1/models/user.model';
 import config from './config';
-
-const authService = AuthService();
 
 passport.use(
   new LocalStrategy({
@@ -19,9 +18,12 @@ passport.use(
     done: (error: unknown, user?: User | false, info?: { message: string }) => void
   ): Promise<void> => {
     try {
-      const user: User | null = await authService.authenticateUser(email, password);
-      if (user === null) return done(null, false, { message: 'Invalid email or password' });
+      const user: User | undefined =  await userRepository().findByEmail(email);
+      if (!user) return done(null, false, { message: 'Invalid email' });
 
+      const isPasswordValid: boolean = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) return done(null, false, { message: 'Invalid password' });
+      
       return done(null, user);
     } catch (error) {
       console.log(error);
