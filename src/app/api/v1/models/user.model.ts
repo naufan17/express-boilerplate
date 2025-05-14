@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import Session from './session.model';
 
 class User extends Model {
   id!: string;
@@ -11,9 +12,23 @@ class User extends Model {
   is_verified!: boolean;
   created_at!: Date;
   updated_at!: Date;
+  sessions?: Session[];
 
   static get tableName() {
     return 'users';
+  }
+
+  static get relationMappings() {
+    return {
+      sessions: {
+        relation: Model.HasManyRelation,
+        modelClass: Session,
+        join: {
+          from: 'users.id',
+          to: 'sessions.user_id',
+        },
+      },
+    }
   }
 }
 
