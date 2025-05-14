@@ -1,14 +1,14 @@
 {
-  "name": "express-boilerplate",
+  "name": "express-boilerplate-knex",
   "version": "1.4.0",
   "description": "Express Rest API Boilerplate",
   "main": "src/index.ts",
   "author": "Muhammad Naufan Athoillah",
   "license": "MIT",
-  "homepage": "https://github.com/naufan17/express-boilerplate#readme",
+  "homepage": "https://github.com/naufan17/express-boilerplate-knex#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/naufan17/express-boilerplate.git"
+    "url": "git+https://github.com/naufan17/express-boilerplate-knex.git"
   },
   "scripts": {
     "dev": "concurrently \"tsc -w\" \"nodemon src/index.ts\"",
@@ -28,6 +28,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-boilerplate": "file:",
+    "express-boilerplate-knex": "file:",
     "express-rate-limit": "^7.5.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.0.0",
