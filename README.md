@@ -73,8 +73,8 @@ docker compose down
 ```
 
 ## Feature
-- **Database**: using https://knexjs.org/
-- **ORM**: using https://vincit.github.io/objection.js/
+- **Database**: using https://postgresql.org/
+- **ORM**: using https://vincit.github.io/objection.js/ and https://knexjs.org/
 - **Authentication**: using https://github.com/auth0/node-jsonwebtoken and https://github.com/passportjs/passport
 - **Logging**: using https://github.com/expressjs/morgan and https://github.com/winstonjs/winston
 - **Linting**: using https://eslint.org/
